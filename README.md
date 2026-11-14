@@ -5,8 +5,8 @@ Term paper i ECON3170/4170, høsten 2026.
 
 ## Kjør
 
-Krever R (≥ 4.3) med pakkene dplyr, tidyr, ggplot2, scales og knitr, og
-Quarto (≥ 1.4) for rapportene. Fra prosjektroten:
+Krever R versjon 4.3 eller nyere med pakkene dplyr, tidyr, ggplot2, scales og knitr, og
+Quarto 1.4 eller nyere for rapportene. Fra prosjektroten:
 
 ```sh
 Rscript scripts/01_build_player_data.R        # bygger datasettene i data/output_data/
