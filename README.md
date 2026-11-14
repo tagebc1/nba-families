@@ -7,6 +7,9 @@
 Datasett og analyse av NBA-spillere, lønn og familierelasjoner.
 Term paper i ECON3170/4170, høsten 2026.
 
+## TLDR:
+i mappen termpaper/ finner du selve prosjektrapporten i pdf og qmd versjon.
+
 ## Kjør
 
 Krever R versjon 4.3 eller nyere med pakkene dplyr, tidyr, ggplot2, scales og knitr, og
@@ -66,7 +69,7 @@ results/                    GENERERT
 docs/                       dokumentasjon
   VIKTIGE_BEMERKELSER.md      variabler, ID-regler og begrensninger i datasettene
   ARBEIDSLOGG.md              hva som ble gjort når, inkludert bruk av AI
-  PENSUMKOBLING.md            hvor prosjektet bruker stoff fra forelesningene og seminarene
+  PENSUMKOBLING.md            hvor prosjektet bruker stoff fra pensum slik at oppgave ikke faller for langt vekk fra pensum
   PROSJEKTBESKRIVELSE_og_KILDER.md   mål, ideer og datakilder
 
 termpaper/                  selve oppgaven: NBA_familier_prosjekt.qmd, references.bib, PDF

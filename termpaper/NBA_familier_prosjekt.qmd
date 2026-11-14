@@ -65,6 +65,13 @@ rolle <- function(x) ifelse(x == "son", "sønn", ifelse(x == "brother", "bror", 
 #show figure: set block(breakable: true)
 ```
 
+```{=typst}
+#align(center, block(inset: 8pt, stroke: 0.5pt + luma(160), radius: 4pt)[
+  *Kode, data og rapporter:* #link("https://github.com/tagebc1/nba-families")[github.com/tagebc1/nba-families] \
+  Alt i oppgaven gjenskapes med to script fra prosjektroten (se appendiks A1 og README i repoet).
+])
+```
+
 # Innledning og mål
 
 Dersom man følger med på NBA legger man fort merke til at familienavn går igjen. Curry, Thompson, Holiday, Antetokounmpo og James er kjente NBA familier med flere aktive eller nylig aktive spillere, og listen over sønner av tidligere NBA-spillere vokser hvert årlige draft. Lenge har det reist et spørsmål i meg og flere andre som følger med på NBA om nepotisme i ligaen: *Påvirker familietilknytninger til NBA karrieren til en spiller?*
@@ -138,7 +145,7 @@ Alle beregninger er gjort i R med tidyverse [@tidyverse] og ggplot2 [@ggplot2], 
 
 **Karrieretabell.** For hver spiller beregnes gjennomsnitt over sesongene, vektet med antall kamper, samt antall sesonger, kamper per sesong og lønn per sesong. Sammenligninger mellom grupper bruker spillere med minst 20 kamper, fordi noen få kamper gir ekstreme per-kamp-tall.
 
-**Gruppeforskjeller.** Forskjellen mellom spillere med og uten NBA-familie måles som standardisert gjennomsnittsforskjell, Cohen's *d* [@cohen1988], altså forskjellen i gjennomsnitt delt på det samlede standardavviket, slik at tall på ulik skala kan sammenlignes i én tabell. Målet er ikke pensum, men brukes fordi det setter poeng, minutter og lønn på samme skala. Cohen sin tommelfingerregel er at 0,2 er en liten, 0,5 en middels og 0,8 en stor forskjell. Usikkerheten er et 95 %-intervall fra 1 000 bootstrap-trekk, som i seminar 1 og 4.
+**Gruppeforskjeller.** Forskjellen mellom spillere med og uten NBA-familie måles som standardisert gjennomsnittsforskjell, Cohen's *d* [@cohen1988], altså forskjellen i gjennomsnitt delt på det samlede standardavviket, slik at tall på ulik skala kan sammenlignes i én tabell. Cohens d metoden er ikke pensum, men brukes her fordi det setter poeng, minutter og lønn på samme skala. Cohen sin tommelfingerregel er at 0,2 er en liten, 0,5 en middels og 0,8 en stor forskjell. Usikkerheten er et 95 %-intervall fra 1 000 bootstrap-trekk, som i seminar 1 og 4.
 
 **Regresjon på panelet.** For å holde epoke, alder og posisjon fast estimerer vi på spiller–sesong-nivå
 
@@ -259,7 +266,7 @@ Lærdommen min samsvarer med det vi har gått gjennom i forelesning og seminarer
 
 ## A1. Filer og kjøring {.unnumbered}
 
-Prosjektet kjøres fra prosjektroten med `Rscript scripts/01_build_player_data.R` (bygger de tre datasettene, tar noen sekunder bare) og `Rscript scripts/02_analysis.R` (figurer og tabeller til `results/`). `scripts/helpers.R` inneholder navnenormalisering og koblingsregelen, og `scripts/00_scrape_father_son_list.R` er scraperen for far–sønn-listen. `reports/build_player_data.qmd` kjører pipen og stopper ved feil, `reports/analysis.qmd` viser alle resultater. Variabler, ID-regler og kjente hull er dokumentert i `docs/VIKTIGE_BEMERKELSER.md`, arbeidsgangen i `docs/ARBEIDSLOGG.md`.
+Hele prosjektet, med råfiler, script, kontrollfiler og denne rapporten, ligger åpent på GitHub: <https://github.com/tagebc1/nba-families>. Prosjektet kjøres fra prosjektroten med `Rscript scripts/01_build_player_data.R` (bygger de tre datasettene, tar noen sekunder bare) og `Rscript scripts/02_analysis.R` (figurer og tabeller til `results/`). `scripts/helpers.R` inneholder navnenormalisering og koblingsregelen, og `scripts/00_scrape_father_son_list.R` er scraperen for far–sønn-listen. `reports/build_player_data.qmd` kjører pipen og stopper ved feil, `reports/analysis.qmd` viser alle resultater. Variabler, ID-regler og kjente hull er dokumentert i `docs/VIKTIGE_BEMERKELSER.md`, arbeidsgangen i `docs/ARBEIDSLOGG.md`.
 
 ## A2. Flere resultater {.unnumbered}
 
