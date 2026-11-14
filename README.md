@@ -2,6 +2,8 @@
 
 ![LeBron og Bronny James](images/LeNepotism.jpg)
 
+*Foto: [NBA.com](https://www.nba.com/news/lebron-james-feeling-pure-joy-in-camp-with-bronny)*
+
 Datasett og analyse av NBA-spillere, lønn og familierelasjoner.
 Term paper i ECON3170/4170, høsten 2026.
 
