@@ -1,0 +1,27 @@
+# Not part of the project
+.venv/
+.quarto/
+.posit/
+.Rproj.user/
+.Rhistory
+.RData
+.DS_Store
+archive/
+Skittentøy/
+HowToTermpaper/
+.Rproj
+
+# Large raw archive: only the three files the pipeline reads are kept
+data/archive_wyatt/*
+!data/archive_wyatt/csv/
+data/archive_wyatt/csv/*
+!data/archive_wyatt/csv/player.csv
+!data/archive_wyatt/csv/common_player_info.csv
+!data/archive_wyatt/csv/draft_history.csv
+
+# Rendered HTML and Quarto scratch (the PDF of the paper is kept)
+reports/*.html
+reports/*_files/
+termpaper/*_files/
+termpaper/*.typ
+termpaper/figures/

@@ -1,0 +1,79 @@
+---
+title: "NBA-familier: alle resultater"
+format:
+  html:
+    toc: true
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+```{r}
+#| include: false
+source("scripts/02_analysis.R")
+library(knitr)
+```
+
+Arbeidsrapport som viser alt `scripts/02_analysis.R` produserer, også det som
+ikke er med i selve oppgaven (`termpaper/NBA_familier_prosjekt.qmd`).
+Tolkningene står i oppgaven; her er bare figurene og tabellene.
+
+## Familier
+
+```{r}
+fig_family_size
+fig_family_salary
+fig_family_time
+fig_entities
+fig_fam_share
+```
+
+## Fedre mot sønner (parvis)
+
+```{r}
+kable(fs_summary, digits = 3)
+kable(fs_unpaired, digits = 2)
+```
+
+## Brødre og NBA-familie mot andre
+
+```{r}
+kable(effects %>% select(group, label, d, lo, hi, n_group, n_other, mean_group, mean_other), digits = 3)
+```
+
+## Eldre mot yngre bror (parvis)
+
+```{r}
+kable(sib_summary, digits = 3)
+kable(twin_pairs, digits = 1)
+```
+
+## Høyde
+
+```{r}
+kable(height_summary, digits = 3)
+fig_league_height
+```
+
+## Regresjoner
+
+```{r}
+kable(reg_summary, digits = 3)
+kable(panel_summary, digits = 3)
+```
+
+## Lønn gitt prestasjon
+
+```{r}
+kable(read.csv("results/analysis/salary_model_fit.csv"), digits = 3)
+fig_pay
+kable(premium, digits = 3)
+fig_pay_family
+```
+
+## Kontroll mot kjente svar
+
+```{r}
+kable(read.csv("results/analysis/known_answer_checks.csv"))
+```

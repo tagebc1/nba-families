@@ -1,0 +1,88 @@
+---
+title: "Bygg player_bio.csv og player_seasons.csv"
+format: html
+execute:
+  echo: true
+  warning: true
+  error: false
+---
+
+## Hva dette dokumentet gjør
+
+Kjører `scripts/01_build_player_data.R`, som lager de tre datasettene i
+`data/output_data/` fra råfilene i `data/`, og kontrollerer deretter at
+outputen henger sammen. Dokumentet stopper med feil hvis en kontroll ryker.
+
+```{r}
+#| label: build
+source("scripts/01_build_player_data.R")
+```
+
+## Les output
+
+```{r}
+#| label: read
+bio <- read.csv("data/output_data/player_bio.csv", stringsAsFactors = FALSE)
+seasons <- read.csv("data/output_data/player_seasons.csv", stringsAsFactors = FALSE)
+relations <- read.csv("data/output_data/family_relations.csv", stringsAsFactors = FALSE)
+report <- read.csv("results/build_report.csv", stringsAsFactors = FALSE)
+knitr::kable(report)
+```
+
+## Kontroller
+
+```{r}
+#| label: checks
+# Nøkler
+stopifnot(!anyDuplicated(bio$playerID))
+stopifnot(!anyDuplicated(paste(seasons$playerID, seasons$season)))
+# Alle sesongrader og alle familierelasjoner peker på en rad i player_bio
+stopifnot(all(seasons$playerID %in% bio$playerID))
+stopifnot(all(relations$person1_playerID %in% bio$playerID),
+          all(relations$person2_playerID %in% bio$playerID))
+# Navn og sesonger
+stopifnot(all(nzchar(bio$full_name)), all(nzchar(seasons$full_name)))
+stopifnot(all(seasons$season >= 1997 & seasons$season <= 2025))
+# ID-typer
+stopifnot(all(grepl("^(p|n)_", bio$playerID)))
+stopifnot(all(bio$id_source %in% c("nba_id", "name_only", "family_list_only")))
+stopifnot(all(seasons$id_match %in% c("nba_id", "name_only")))
+# Hver sesongrad kommer fra minst én kilde
+stopifnot(all(seasons$in_stats + seasons$in_salary + seasons$in_all_seasons >= 1))
+# Familier: far og sønn er ulike personer og deler familyID
+fs <- relations[relations$relation_type == "father_son", ]
+stopifnot(all(fs$person1_playerID != fs$person2_playerID))
+stopifnot(all(bio$familyID[match(fs$person1_playerID, bio$playerID)] ==
+              bio$familyID[match(fs$person2_playerID, bio$playerID)]))
+stopifnot(all(bio$father_dummy[match(fs$person1_playerID, bio$playerID)] == 1),
+          all(bio$son_dummy[match(fs$person2_playerID, bio$playerID)] == 1))
+cat("Alle kontroller OK\n")
+```
+
+## Oversikt
+
+```{r}
+#| label: overview
+table(seasons$id_match)
+table(bio$id_source)
+table(paste0("stats=", seasons$in_stats, " salary=", seasons$in_salary,
+             " all_seasons=", seasons$in_all_seasons))
+round(colMeans(is.na(seasons)), 2)
+```
+
+## Hva som bør gjennomgås manuelt
+
+* `results/name_matching_review.csv`: alle navn som ikke var en entydig
+  treff mot spillerregisteret, med kandidatene som ble vurdert.
+  `no_match` er spillere som fikk en `n_`-ID. Feilstavinger og kallenavn
+  rettes ved å legge til en rad i `data/name_aliases.csv` og kjøre på nytt.
+* `results/family_relations_check.csv`: hvordan hvert far–sønn-par ble
+  koblet. Status som ikke er `linked` bør sjekkes.
+
+```{r}
+#| label: review
+review <- read.csv("results/name_matching_review.csv", stringsAsFactors = FALSE)
+table(review$match_type)
+fam <- read.csv("results/family_relations_check.csv", stringsAsFactors = FALSE)
+knitr::kable(fam[fam$status != "linked", ])
+```

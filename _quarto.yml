@@ -1,0 +1,7 @@
+# Quarto project settings. Code in reports/*.qmd runs from the project root,
+# so paths like data/output_data/... and scripts/... work unchanged.
+project:
+  execute-dir: project
+  render:
+    - reports/*.qmd
+    - termpaper/*.qmd

@@ -1,0 +1,169 @@
+"familyID","family_name","members","n_members","n_with_data","salary_total","top_earner","top_earner_share","first_season","last_season"
+65,"James","Bronny James, LeBron James",2,2,513010806,"LeBron James",0.99774438864354,2004,2025
+23,"Curry","Dell Curry, Seth Curry, Stephen Curry",3,3,495015915,"Stephen Curry",0.883575690692692,1997,2025
+42,"Gasol","Marc Gasol, Pau Gasol",2,2,391022083,"Pau Gasol",0.521883299874908,2002,2022
+59,"Holiday","Aaron Holiday, Jrue Holiday, Justin Holiday",3,3,362788034,"Jrue Holiday",0.832425002198391,2010,2025
+76,"Lopez","Brook Lopez, Robin Lopez",2,2,332673558,"Brook Lopez",0.683083186310828,2009,2025
+13,"Bryant","Joe Bryant, Kobe Bryant",2,1,327786478,"Kobe Bryant",1,1997,2016
+2,"Antetokounmpo","Giannis Antetokounmpo, Kostas Antetokounmpo, Thanasis Antetokounmpo",3,3,313343744,"Giannis Antetokounmpo",0.965888931230744,2014,2025
+144,"Thompson","Klay Thompson, Mychal Thompson, Mychel Thompson",3,2,303137681,"Klay Thompson",0.995923307864851,2012,2025
+60,"Horford","Al Horford, Tito Horford",2,1,301853883,"Al Horford",1,2008,2025
+77,"Love","Kevin Love, Stan Love",2,1,291368450,"Kevin Love",1,2009,2025
+49,"Griffin","Blake Griffin, Taylor Griffin",2,2,286177125,"Blake Griffin",0.990410928197004,2010,2023
+159,"Wiggins","Andrew Wiggins, Mitchell Wiggins",2,1,237315019,"Andrew Wiggins",1,2015,2025
+8,"Booker","Devin Booker, Melvin Booker",2,2,231946745,"Devin Booker",1,1997,2025
+4,"Ball","LaMelo Ball, Lonzo Ball",2,2,195161305,"Lonzo Ball",0.617810297999391,2018,2025
+52,"Hardaway","Tim Hardaway, Tim Hardaway Jr.",2,2,184893310,"Tim Hardaway Jr.",0.896480840761626,1997,2025
+46,"Grant","Harvey Grant, Horace Grant, Jerami Grant, Jerian Grant",4,4,173379890,"Jerami Grant",0.859372606592379,1997,2025
+30,"Dragic","Goran Dragic, Zoran Dragic",2,2,167686132,"Goran Dragic",0.979649778074671,2009,2023
+93,"Morris","Markieff Morris, Marcus Morris Sr.",2,2,165157793,"Marcus Morris Sr.",0.699003273796472,2012,2025
+125,"Sabonis","Arvydas Sabonis, Domantas Sabonis",2,2,160490569,"Domantas Sabonis",0.933728193087782,1997,2025
+111,"Plumlee","Mason Plumlee, Miles Plumlee",2,2,140181507,"Mason Plumlee",0.60427038353925,2013,2025
+84,"Martin","Kenyon Martin, Kenyon Martin Jr.",2,2,124906264,"Kenyon Martin",0.882286007689734,2001,2025
+9,"Boozer","Cameron Boozer, Carlos Boozer",2,1,119783499,"Carlos Boozer",1,2003,2015
+64,"Jackson","Jaren Jackson, Jaren Jackson Jr.",2,2,119179971,"Jaren Jackson Jr.",0.974660171716269,1997,2025
+166,"Zeller","Cody Zeller, Luke Zeller, Tyler Zeller",3,3,110156060,"Cody Zeller",0.834504374974922,2013,2025
+133,"Smith","Chris Smith, JR Smith",2,2,106811900,"JR Smith",0.995565999668576,2005,2022
+141,"Teague","Jeff Teague, Marquis Teague",2,2,104118696,"Jeff Teague",0.967877565427827,2010,2021
+40,"Garland","Darius Garland, Winston Garland",2,1,103933069,"Darius Garland",1,2020,2025
+85,"Matthews","Wes Matthews, Wesley Matthews",2,1,100921845,"Wesley Matthews",1,2010,2024
+63,"Howard","Jett Howard, Juwan Howard",2,2,98014983,"Juwan Howard",0.893337633900319,1997,2025
+118,"Richardson","Jase Richardson, Jason Richardson",2,1,96968269,"Jason Richardson",1,2002,2016
+70,"Jones","Tre Jones, Tyus Jones",2,2,92668512,"Tyus Jones",0.740643186328491,2016,2025
+12,"Brunson","Jalen Brunson, Rick Brunson",2,2,90070612,"Jalen Brunson",0.979822797251561,1998,2025
+164,"Wright","Delon Wright, Dorell Wright",2,2,86947703,"Delon Wright",0.658594684209196,2005,2025
+106,"Payton","Gary Payton, Gary Payton II",2,2,80916952,"Gary Payton",0.626443813652299,1997,2025
+96,"Nance","Larry Nance, Pete Nance, Larry Nance Jr.",3,2,78663436,"Larry Nance Jr.",0.996799427881589,2016,2025
+6,"Bibby","Henry Bibby, Mike Bibby",2,1,78131711,"Mike Bibby",1,1999,2013
+122,"Rose","Jalen Rose, Jimmy Walker",2,1,77595250,"Jalen Rose",1,1997,2007
+33,"Dunleavy","Mike Dunleavy, Mike Dunleavy",2,1,77123496,"Mike Dunleavy",1,2003,2018
+22,"Crowder","Corey Crowder, Jae Crowder",2,1,75572796,"Jae Crowder",1,2013,2025
+110,"Pippen","Scottie Pippen, Scotty Pippen Jr.",2,2,68681235,"Scottie Pippen",0.969605686327568,1997,2025
+120,"Robinson","Glenn Robinson, Glenn Robinson III",2,2,66723567,"Glenn Robinson",0.853521515119238,1997,2021
+147,"Trent","Gary Trent, Gary Trent Jr.",2,2,63156573,"Gary Trent Jr.",0.99064230416682,1997,2025
+139,"Szczerbiak","Wally Szczerbiak, Walter Szczerbiak",2,1,61656000,"Wally Szczerbiak",1,2000,2009
+74,"Landry","Carl Landry, Marcus Landry",2,2,57102574,"Carl Landry",0.953147278439672,2008,2018
+142,"Temple","Collis Temple, Garrett Temple",2,1,55199932,"Garrett Temple",1,2010,2025
+83,"Martin","Caleb Martin, Cody Martin",2,2,55196764,"Cody Martin",0.514726587957222,2020,2025
+38,"Fisher","Derek Fisher, Duane Washington, Duane Washington Jr.",3,2,54511487,"Derek Fisher",0.911143517328742,1997,2025
+5,"Barry","Brent Barry, Drew Barry, Jon Barry, Rick Barry",4,3,54419647,"Brent Barry",0.80012733268924,1997,2013
+155,"Wagner","Franz Wagner, Moritz Wagner",2,2,54005717,"Moritz Wagner",0.554758415669215,2019,2025
+18,"Claxton","Charles Claxton, Nic Claxton",2,1,52191094,"Nic Claxton",1,2020,2025
+104,"Parker","Jabari Parker, Sonny Parker",2,1,51754683,"Jabari Parker",1,2015,2022
+88,"McDaniels","Jaden McDaniels, Jalen McDaniels",2,2,50475245,"Jaden McDaniels",0.675709825677914,2020,2025
+163,"Winslow","Justise Winslow, Rickie Winslow",2,1,49844282,"Justise Winslow",1,2016,2024
+26,"Davis","Ed Davis, Terry Davis",2,2,49386873,"Ed Davis",0.988903934047414,1998,2022
+119,"Rivers","Austin Rivers, Doc Rivers",2,1,47494643,"Austin Rivers",1,2013,2023
+20,"Collins","Jarron Collins, Jason Collins",2,2,42500852,"Jason Collins",0.766863567817417,2002,2014
+54,"Henderson","Gerald Henderson, Gerald Henderson",2,1,42311520,"Gerald Henderson",1,2010,2018
+56,"Hernangomez","Juancho Hernangomez, Willy Hernangomez",2,2,41284088,"Juancho Hernangomez",0.672618322100273,2017,2023
+92,"Mobley","Evan Mobley, Isaiah Mobley",2,2,39829794,"Evan Mobley",0.97167991880651,2022,2025
+3,"Anthony","Cole Anthony, Greg Anthony",2,2,37868172,"Cole Anthony",0.80352893717711,1997,2025
+117,"Rice","Glen Rice, Glen Rice",2,2,36974842,"Glen Rice",0.951403659818208,1997,2015
+25,"Davis","Dale Davis, Trayce Jackson-Davis",2,2,35719686,"Dale Davis",0.914761680715782,1997,2025
+167,"Thompson","Amen Thompson, Ausar Thompson",2,2,34911462,"Amen Thompson",0.524784725429144,2024,2025
+157,"Walton","Bill Walton, Luke Walton",2,1,33082726,"Luke Walton",1,2004,2013
+95,"Murray","Keegan Murray, Kris Murray",2,2,31881830,"Keegan Murray",0.814246735523024,2023,2025
+138,"Stockton","David Stockton, John Stockton",2,2,31675521,"John Stockton",0.883963360855217,1997,2020
+108,"Person","Chuck Person, Wesley Person",2,2,31500000,"Wesley Person",1,1997,2005
+123,"Rush","Brandon Rush, Kareem Rush",2,2,31290397,"Brandon Rush",0.724684541394601,2003,2017
+1,"Anderson","Shandon Anderson, Willie Anderson",2,2,30519373,"Shandon Anderson",1,1997,2006
+135,"Smith","Jabari Smith, Jabari Smith Jr.",2,2,29096683,"Jabari Smith",0.664192650413107,2001,2025
+15,"Carter","Anthony Carter, Devin Carter",2,2,22817660,"Anthony Carter",0.794501276642741,2000,2025
+11,"Brewer","Ron Brewer, Ronnie Brewer",2,1,19596748,"Ronnie Brewer",1,2007,2015
+161,"Wilkins","Damien Wilkins, Dominique Wilkins, Gerald Wilkins",3,3,19439914,"Damien Wilkins",1,1997,2018
+36,"Ewing","Patrick Ewing, Patrick Ewing",2,2,18353773,"Patrick Ewing",0.998633904865229,1997,2013
+45,"Graham","Joey Graham, Stephen Graham",2,2,17251830,"Joey Graham",0.635218582608338,2006,2013
+51,"Hansbrough","Ben Hansbrough, Tyler Hansbrough",2,2,16981174,"Tyler Hansbrough",0.972110055523841,2010,2016
+21,"Cook","Brian Cook, Norm Cook",2,1,16579993,"Brian Cook",1,2004,2013
+27,"Davis","Johnny Davis, Mark Davis",2,1,15592363,"Johnny Davis",1,2023,2025
+73,"Kornet","Frank Kornet, Luke Kornet",2,1,14385109,"Luke Kornet",1,2018,2025
+109,"Piatkowski","Eric Piatkowski, Walt Piatkowski",2,1,13397938,"Eric Piatkowski",1,1997,2008
+48,"Griffin","Adrian Griffin, AJ Griffin",2,2,12881130,"AJ Griffin",0.607290897615349,2000,2025
+19,"Coffey","Amir Coffey, Richard Coffey",2,1,12682314,"Amir Coffey",1,2020,2025
+7,"Bol","Bol Bol, Manute Bol",2,1,11656883,"Bol Bol",1,2020,2025
+86,"May","Scott May, Sean May",2,1,11271833,"Sean May",1,2006,2013
+55,"Henry","Carl Henry, Xavier Henry",2,1,10442195,"Xavier Henry",1,2011,2018
+28,"Daye","Austin Daye, Darren Daye",2,1,10318258,"Austin Daye",1,2010,2016
+16,"Champagnie","Julian Champagnie, Justin Champagnie",2,2,10130322,"Julian Champagnie",0.65434366252129,2022,2025
+129,"Sheppard","Jeff Sheppard, Reed Sheppard",2,2,10098960,"Reed Sheppard",1,1999,2025
+103,"Pargo","Jannero Pargo, Jeremy Pargo",2,2,9802279,"Jannero Pargo",0.870996632517805,2003,2020
+78,"Lucas","John Lucas, John Lucas III",2,1,9591535,"John Lucas III",1,2006,2018
+114,"Price","Brent Price, Mark Price",2,2,9504000,"Brent Price",1,1997,2002
+156,"Walker","Jabari Walker, Samaki Walker",2,2,7809806,"Jabari Walker",0.623550188058449,1997,2025
+79,"Manning","Danny Manning, Ed Manning",2,1,4350000,"Danny Manning",1,1997,2003
+71,"Karl","Coby Karl, George Karl",2,1,3719175,"Coby Karl",1,2008,2013
+82,"Marble","Devyn Marble, Roy Marble",2,1,3690800,"Devyn Marble",1,2015,2018
+112,"Pressey","Paul Pressey, Phil Pressey",2,1,3323246,"Phil Pressey",1,2014,2018
+37,"Ferry","Bob Ferry, Danny Ferry",2,1,3300000,"Danny Ferry",1,1997,2003
+113,"Price","AJ Price, Tony Price",2,1,2982399,"AJ Price",1,2010,2015
+53,"Harper","Dylan Harper, Ron Harper, Ron Harper Jr.",3,2,2891956,"Ron Harper",0.760730799500407,1997,2024
+134,"Smith","Derek Smith, Nolan Smith",2,1,2731440,"Nolan Smith",1,2012,2013
+140,"Taylor","Jeff Taylor, Jeffery Taylor",2,1,2492987,"Jeffery Taylor",1,2013,2015
+116,"Rautins","Andy Rautins, Leo Rautins",2,1,2177744,"Andy Rautins",1,2011,2013
+41,"Garrett","Diante Garrett, Eldo Garrett",2,1,2108113,"Diante Garrett",1,2013,2015
+165,"Young","Joe Young, Michael Young",2,1,2059368,"Joe Young",1,2016,2018
+94,"Murphy","Erik Murphy, Jay Murphy",2,1,1796842,"Erik Murphy",1,2013,2015
+47,"Green","Sidney Green, Taurean Green",2,1,1565843,"Taurean Green",1,2007,2009
+57,"Higgins","Cory Higgins, Rod Higgins",2,1,1235799,"Cory Higgins",1,2012,2013
+154,"Wagner","Dajuan Wagner, Milt Wagner",2,1,798112,"Dajuan Wagner",1,2003,2007
+131,"Silas","James Silas, Xavier Silas",2,1,773653,"Xavier Silas",1,2012,2018
+124,"Russell","Campy Russell, Frank Russell, Walker Russell, Walker Russell",4,1,748600,"Walker Russell",1,2012,2013
+153,"Vroman","Brett Vroman, Jackson Vroman",2,1,641748,"Jackson Vroman",1,2005,2006
+98,"Nembhard","Ruben Nembhard, RJ Nembhard Jr.",2,2,568779,"RJ Nembhard Jr.",1,1997,2022
+80,"Mannion","Nico Mannion, Pace Mannion",2,1,547332,"Nico Mannion",1,2021,2021
+10,"Bradley","Charles Bradley, Dudley Bradley",2,0,0,NA,NA,Inf,-Inf
+14,"Carr","Cameron Carr, Chris Carr",2,1,0,NA,NA,1997,2001
+17,"Chapman","Rex Chapman, Wayne Chapman",2,1,0,NA,NA,1997,2000
+24,"Davis","Brad Davis, Mickey Davis",2,0,0,NA,NA,Inf,-Inf
+29,"Douglas","John Douglas, Leon Douglas",2,0,0,NA,NA,Inf,-Inf
+31,"Drew","Larry Drew, Larry Drew II",2,1,0,NA,NA,2015,2018
+32,"Dumas","Rich Dumas, Richard Dumas",2,0,0,NA,NA,Inf,-Inf
+34,"Edwards","Bill Edwards, Vincent Edwards",2,1,0,NA,NA,2019,2019
+35,"Ellis","LeRon Ellis, Leroy Ellis",2,0,0,NA,NA,Inf,-Inf
+39,"Fitzgerald","Bob Fitzgerald, Dick Fitzgerald",2,0,0,NA,NA,Inf,-Inf
+43,"Gervin","Derrick Gervin, George Gervin",2,0,0,NA,NA,Inf,-Inf
+44,"Gondrezick","Glen Gondrezick, Grant Gondrezick",2,0,0,NA,NA,Inf,-Inf
+50,"Guokas","Al Guokas, Matt Guokas, Matt Guokas",3,0,0,NA,NA,Inf,-Inf
+58,"Higgins","Earle Higgins, Sean Higgins",2,1,0,NA,NA,1998,1998
+61,"Hosket","Wilmer Hosket, Bill Hosket Sr.",2,0,0,NA,NA,Inf,-Inf
+62,"Houston","Byron Houston, Curtis Perry",2,0,0,NA,NA,Inf,-Inf
+66,"Johnson","Eric Johnson, Vinnie Johnson",2,0,0,NA,NA,Inf,-Inf
+67,"Jones","Askia Jones, Wali Jones",2,0,0,NA,NA,Inf,-Inf
+68,"Jones","Caldwell Jones, Charles Jones, Major Jones, Wil Jones",4,1,0,NA,NA,1997,1998
+69,"Jones","Nick Jones, Steve Jones",2,0,0,NA,NA,Inf,-Inf
+72,"King","Albert King, Bernard King",2,0,0,NA,NA,Inf,-Inf
+75,"Lee","Ron Lee, Russell Lee",2,0,0,NA,NA,Inf,-Inf
+81,"Maravich","Pete Maravich, Peter Maravich",2,0,0,NA,NA,Inf,-Inf
+87,"McCray","Rodney McCray, Scooter McCray",2,0,0,NA,NA,Inf,-Inf
+89,"McGuire","Al McGuire, Allie McGuire, Dick McGuire",3,0,0,NA,NA,Inf,-Inf
+90,"Melchionni","Bill Melchionni, Gary Melchionni",2,0,0,NA,NA,Inf,-Inf
+91,"Mikan","Ed Mikan, George Mikan, Larry Mikan",3,0,0,NA,NA,Inf,-Inf
+97,"Natt","Calvin Natt, Kenny Natt",2,0,0,NA,NA,Inf,-Inf
+99,"Norris","Audie Norris, Sylvester Norris",2,0,0,NA,NA,Inf,-Inf
+100,"O'Bannon","Charles O'Bannon, Ed O'Bannon",2,2,0,NA,NA,1997,1999
+101,"Ogden","Carlos Ogden, Ralph Ogden",2,0,0,NA,NA,Inf,-Inf
+102,"Otten","Don Otten, Mac Otten",2,0,0,NA,NA,Inf,-Inf
+105,"Paxson","Jim Paxson, Jim Paxson, John Paxson",3,0,0,NA,NA,Inf,-Inf
+107,"Pearcy","George Pearcy, Henry Pearcy",2,0,0,NA,NA,Inf,-Inf
+115,"Price","Jim Price, Mike Price",2,0,0,NA,NA,Inf,-Inf
+121,"Rollins","Kenny Rollins, Phil Rollins",2,0,0,NA,NA,Inf,-Inf
+126,"Salvadori","Al Salvadori, Kevin Salvadori",2,1,0,NA,NA,1997,1998
+127,"Schayes","Dan Schayes, Dolph Schayes",2,1,0,NA,NA,1997,1999
+128,"Scheffler","Steve Scheffler, Tom Scheffler",2,1,0,NA,NA,1997,1997
+130,"Short","Purvis Short, Steve Short",2,0,0,NA,NA,Inf,-Inf
+132,"Simmons","Connie Simmons, Johnny Simmons",2,0,0,NA,NA,Inf,-Inf
+136,"Sojourner","Mike Sojourner, Willie Sojourner",2,0,0,NA,NA,Inf,-Inf
+137,"Stith","Sam Stith, Tom Stith",2,0,0,NA,NA,Inf,-Inf
+143,"Thomas","Carl Thomas, Charles Thomas",2,1,0,NA,NA,1997,1998
+145,"Thompson","Ethan Thompson, Stephen Thompson",2,0,0,NA,NA,Inf,-Inf
+146,"Trapp","George Trapp, John Trapp",2,0,0,NA,NA,Inf,-Inf
+148,"Arsdale","Dick Van Arsdale, Tom Van Arsdale",2,0,0,NA,NA,Inf,-Inf
+149,"Kolff","Butch Van Breda Kolff, Jan Van Breda Kolff",2,0,0,NA,NA,Inf,-Inf
+150,"Vandeweghe","Ernie Vandeweghe, Kiki Vandeweghe",2,0,0,NA,NA,Inf,-Inf
+151,"Vaughn","David Vaughn, David Vaughn Jr.",2,1,0,NA,NA,1997,1999
+152,"Vincent","Jay Vincent, Sam Vincent",2,0,0,NA,NA,Inf,-Inf
+158,"Washburn","Chris Washburn, Julian Washburn",2,1,0,NA,NA,2019,2019
+160,"Wiley","Michael Wiley, Morlon Wiley",2,0,0,NA,NA,Inf,-Inf
+162,"Williams","Gus Williams, Ray Williams",2,0,0,NA,NA,Inf,-Inf
+168,"Mount","Pete Mount, Rick Mount",2,0,0,NA,NA,Inf,-Inf
