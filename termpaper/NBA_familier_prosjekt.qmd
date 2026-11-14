@@ -2,7 +2,7 @@
 title: "Familiebånd i NBA"
 subtitle: "Term paper in ECON3170/4170, autumn 2026"
 author:
-  - name: Kandidatnummer
+  - name: "Kandidatnummer: 170108"
 date: today
 date-format: D MMMM YYYY
 abstract: |
@@ -81,7 +81,7 @@ Hovedarbeidet i prosjektet er ikke analysen, men dataene. Ingen offentlig kilde 
 
 ## Kilder og hvordan vi kom dit
 
-Det første valget var basketball-reference.com, som er Mekka for historisk basketballstatistikk, men nettstedet blokkerer scraping etter få forespørsler, og betalte API-er var utenfor rekkevidde på priser opp til 200\$ ment for større bedrifter og profesjonelle. Jeg forsøkte også å hente lønn for 1990-tallet fra hoopshype.com slik det ene datasettet jeg endte med å bruke gjør, men ble stoppet av en betalingsmur. Løsningen ble tre ferdige datasett fra Kaggle, alle bygget på NBA sine egne data, pluss to familielister vi laget selv (@tbl-sources).
+Det første valget var basketball-reference.com, som er Mekka for historisk basketballstatistikk, men nettstedet blokkerer scraping etter få forespørsler, og betalte API-er var utenfor rekkevidde på priser opp til 200\$ ment for større bedrifter og profesjonelle. Jeg forsøkte også å hente lønn for 1990-tallet fra hoopshype.com slik det ene datasettet jeg endte med å bruke gjør, men ble stoppet av en betalingsmur. Løsningen ble tre ferdige datasett fra Kaggle, alle bygget på NBA sine egne data, pluss to familielister jeg laget selv (@tbl-sources).
 
 | Kilde | Enhet | Periode | Rader | Innhold |
 |:--------------|:--------------|:--------------|--------------:|:--------------|
@@ -92,7 +92,7 @@ Det første valget var basketball-reference.com, som er Mekka for historisk bask
 | Far–sønn-liste [@wiki-secondgen] | par |  | 113 | scrapet fra Wikipedia med rvest [@rvest] |
 | NBA brødre-liste [@fansided-brothers] | brødregruppe |  | 157 | laget ved å kopiere listen fra nettartikkel og kjøre script som produserer forholdene i en csv fil |
 
-: Råkildene. Filene ligger uendret i `data/`. Alt som gjøres med dem, skjer i kode. {#tbl-sources}
+: Råkildene. Filene ligger uendret i `data/`. Alt som gjøres med disse skjer i scripts. {#tbl-sources}
 
 Et første forsøk på å merge datakilder, med debugging hjelp fra KI-assistent, ga et datasett som så riktig ut, men var feil. Tre feil ble avdekket da jeg kontrollerte kjente spillere. Registeret vi brukte som ID-kilde dekket bare 4 171 av 4 831 spillere, så for eksempel spillere som Andre Iguodala og Brook Lopez fantes ikke. Koden som skulle fjerne suffikser som «Jr.» og «III» brukte ordgrensen `\b`, som R sin standard regex-motor ignorerer, slik at «Perry Jones» og «Perry Jones III» ble to personer og «C.J. Wilcox» og «CJ Wilcox» likeså. Og kallenavn som «Steve Smith» for Steven Smith ble aldri koblet. Pipen ble derfor skrevet på nytt, og resten av dette kapittelet beskriver den endelige versjonen av kode som slår sammen datasettene til brukbare output csv filer.
 
