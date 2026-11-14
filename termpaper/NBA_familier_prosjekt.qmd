@@ -68,7 +68,7 @@ rolle <- function(x) ifelse(x == "son", "sønn", ifelse(x == "brother", "bror", 
 ```{=typst}
 #align(center, block(inset: 8pt, stroke: 0.5pt + luma(160), radius: 4pt)[
   *Kode, data og rapporter:* #link("https://github.com/tagebc1/nba-families")[github.com/tagebc1/nba-families] \
-  Alt i oppgaven gjenskapes med to script fra prosjektroten (se appendiks A1 og README i repoet).
+  Alt i oppgaven finnes i github repoet (se appendiks A1 og README i repoet).
 ])
 ```
 
