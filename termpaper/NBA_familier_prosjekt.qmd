@@ -90,7 +90,7 @@ Det første valget var basketball-reference.com, som er Mekka for historisk bask
 | Salaries [@kaggle-salaries] | spiller-sesong | 2000–2025 | 12 386 | lønn der statsfilen mangler |
 | NBA-register [@kaggle-wyatt] | spiller | 1946–2023 | 4 831 | offisiell ID, fødselsdato, karriereår, draft |
 | Far–sønn-liste [@wiki-secondgen] | par |  | 113 | scrapet fra Wikipedia med rvest [@rvest] |
-| NBA brødre-liste [@fansided-brothers] | brødregruppe |  | 157 | laget ved å kopiere listen fra nettartikkel og kjøre script som produserer forholdene i en csv fil |
+| NBA brødre-liste [@fansided-brothers] | bror |  | 157 | laget ved å kopiere listen fra nettartikkel og kjøre script som produserer forholdene i en csv fil |
 
 : Råkildene. Filene ligger uendret i `data/`. Alt som gjøres med disse skjer i scripts. {#tbl-sources}
 
@@ -98,7 +98,7 @@ Et første forsøk på å merge datakilder, med debugging hjelp fra KI-assistent
 
 ## Koblingsproblemet
 
-Hjertet til problematikken med datamergingen var en vanskelig join: tabellene skal kobles på navn, men navn er verken unike eller stavet likt. I registeret finnes 106 navn som tilhører to eller flere spillere, som to «Marcus Williams» som spilte samtidig i 2008-09, og far og sønn kan hete nøyaktig det samme, som Mike Dunleavy og Mike Dunleavy. Løsningen er en regelbasert versjon av probabilistisk matching, der hvert navn i hver sesong kobles én gang og resultatet brukes i alle outputfilene:
+Hjertet til problematikken med datamergingen var en vanskelig join: tabellene skal kobles på navn, men navn er verken unike eller stavet likt. I datasettet er det 106 spillere som deler navn med minst én annen spiller, som to «Marcus Williams» som spilte samtidig i 2008-09, og far og sønn kan hete nøyaktig det samme, som Mike Dunleavy og Mike Dunleavy. Løsningen er en regelbasert versjon av probabilistisk matching, der hvert navn i hver sesong kobles én gang og resultatet brukes i alle outputfilene:
 
 1.  **Normaliser navnet.** Små bokstaver, ingen punktum eller apostrof, slik at «O.G. Anunoby» og «OG Anunoby» får samme nøkkel. En manuell aliastabell med 55 rader oversetter kallenavn og feilstavinger (Louis Williams -\> Lou Williams). Tabellen ble fylt ved å liste alle umatchede navn sammen med kandidater i registeret med samme etternavn og overlappende år, og så avgjøre hver rad for hånd.
 

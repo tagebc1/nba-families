@@ -559,6 +559,6 @@ save_tbl(data.frame(check = c("LeBron James total salary 2000-2025 in data", "Le
                               checks$n_players_with_data, checks$n_families)), "known_answer_checks")
 
 cat("Families:", nrow(families), " | players with stats:", nrow(players),
-    " | father-son pairs with data:", n_distinct(fs_long$a),
-    " | sibling pairs with data:", n_distinct(sib_long$a), " | height pairs:", nrow(heights), "\n")
+    " | father-son pairs with data:", n_distinct(paste(fs_long$a, fs_long$b)),
+    " | sibling pairs with data:", n_distinct(paste(sib_long$a, sib_long$b)), " | height pairs:", nrow(heights), "\n")
 cat("Figures written to results/figures, tables to results/analysis\n")
