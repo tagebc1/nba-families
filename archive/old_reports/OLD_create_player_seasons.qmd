@@ -1,0 +1,69 @@
+---
+title: "Create and validate player_seasons.csv"
+format: html
+execute:
+  echo: true
+  warning: true
+  error: true
+---
+
+## Formål
+
+Denne dokumenterte R-pipen lager `data/player_seasons.csv` uten å endre
+`data/player_bio.csv`. Når et navn matcher nøyaktig én bio-rad, brukes bioens
+eksisterende `playerID`. Ukoblede eller tvetydige sesongspillere beholdes med
+en stabil `season_name_...`-ID og rapporteres separat.
+
+Review-output samles i `results/review_player_seasons/`. Dette gjør
+`results/` ryddig samtidig som koblinger, lønnskonflikter og reduksjoner kan
+etterprøves.
+
+## Kjør pipen
+
+```{r}
+result <- source("scripts/create_player_seasons.R")
+```
+
+## Strukturell validering
+
+```{r}
+seasons <- read.csv("data/player_seasons.csv", stringsAsFactors = FALSE,
+                    check.names = FALSE)
+bio <- read.csv("data/player_bio.csv", stringsAsFactors = FALSE,
+                check.names = FALSE)
+report <- read.csv("results/player_seasons_report.csv", stringsAsFactors = FALSE)
+linkage <- read.csv("results/review_player_seasons/player_seasons_linkage.csv",
+                     stringsAsFactors = FALSE)
+
+stopifnot(!anyDuplicated(paste(seasons$playerID, seasons$season)))
+stopifnot(all(nzchar(seasons$playerID)), all(!is.na(seasons$full_name)),
+          all(nzchar(seasons$full_name)),
+          all(!is.na(seasons$first_name)), all(nzchar(seasons$first_name)),
+          all(is.na(seasons$last_name) | nzchar(seasons$last_name) |
+                !grepl(" ", seasons$full_name, fixed = TRUE)))
+stopifnot(all(seasons$season >= 1996 & seasons$season <= 2025))
+expected_columns <- c(
+  "playerID", "season", "first_name", "last_name", "full_name", "salary",
+  "position", "season_height", "season_weight", "team_abbreviation",
+  "games_played", "games_started", "minutes_pg", "fgm_pg", "fga_pg",
+  "fgpct_pg", "3pm_pg", "3pa_pg", "3p_pct", "2pm_pg", "2pa_pg", "2p_pct",
+  "efg%", "ftm_pg", "fta_pg", "ftpct", "oreb_pg", "dreb_pg", "treb_pg",
+  "ast_pg", "stl_pg", "blk_pg", "tov_pg", "pts_pg", "net_rating", "oreb_pct",
+  "dreb_pct", "usg_pct", "ts_pct", "ast_pct", "playerID_status"
+)
+stopifnot(identical(names(seasons), expected_columns))
+matched <- seasons$playerID_status == "matched_bio"
+stopifnot(all(seasons$playerID[matched] %in% bio$playerID))
+stopifnot(all(!grepl("^season_name_", seasons$playerID[matched])))
+stopifnot(all(seasons$playerID[!matched] %in%
+              linkage$playerID[linkage$linkage_status != "matched_bio"]))
+stopifnot(all(seasons$playerID_status %in%
+              c("matched_bio", "unmatched_bio", "ambiguous_bio")))
+report
+table(seasons$playerID_status)
+colSums(is.na(seasons[c("salary", "games_played", "team_abbreviation",
+                        "season_height", "season_weight", "3p_pct", "efg%")]))
+```
+
+Alle kontroller over er eksplisitte `stopifnot()`-krav. En feil stopper
+renderingen i stedet for å produsere en suksessformet, men ugyldig output.

@@ -1,0 +1,14 @@
+"metric","value"
+"all_seasons_rows",12844
+"stats_rows",10473
+"salary_rows",12386
+"bio_rows",4626
+"season_rows",13862
+"duplicate_name_keys",41
+"unmatched_father_son_rows",57
+"unmatched_sibling_rows",47
+"salary_conflict_keys",26
+"season_min",1997
+"season_max",2025
+"missing_salary_rows",3060
+"missing_birthdate_rows",498

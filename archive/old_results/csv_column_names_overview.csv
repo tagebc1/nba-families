@@ -1,0 +1,9 @@
+file,folder,variables
+all_seasons.csv,data,...1; player_name; team_abbreviation; age; player_height; player_weight; college; country; draft_year; draft_round; draft_number; gp; pts; reb; ast; net_rating; oreb_pct; dreb_pct; usg_pct; ts_pct; ast_pct; season
+common_player_info.csv,archive_wyatt/csv,person_id; first_name; last_name; display_first_last; display_last_comma_first; display_fi_last; player_slug; birthdate; school; country; last_affiliation; height; weight; season_exp; jersey; position; rosterstatus; games_played_current_season_flag; team_id; team_name; team_abbreviation; team_code; team_city; playercode; from_year; to_year; dleague_flag; nba_flag; games_played_flag; draft_year; draft_round; draft_number; greatest_75_flag
+father_son_list.csv,data,father; sons
+NBA Player Salaries_2000-2025.csv,data,Player; Salary; Season
+NBA Player Stats and Salaries_2000-2025.csv,data,Player; Salary; Year; Pos; Age; Team; G; GS; MP; FG; FGA; FG%; 3P; 3PA; 3P%; 2P; 2PA; 2P%; eFG%; FT; FTA; FT%; ORB; DRB; TRB; AST; STL; BLK; TOV; PF; PTS
+NBA Player Stats and Salaries_2010-2025.csv,data,Player; Salary; Year; Pos; Age; Team; G; GS; MP; FG; FGA; FG%; 3P; 3PA; 3P%; 2P; 2PA; 2P%; eFG%; FT; FTA; FT%; ORB; DRB; TRB; AST; STL; BLK; TOV; PF; PTS
+nba_siblings_list.csv,data,person_id; family_id; first_name; last_name; full_name
+nba-salaries.csv,data,rank; name; position; team; salary; season

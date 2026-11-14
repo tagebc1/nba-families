@@ -1,0 +1,17 @@
+"metric","value"
+"all_seasons_input_rows",12844
+"stats_input_rows",10473
+"salary_input_rows",12386
+"output_rows",15539
+"unique_players",2938
+"season_min",1997
+"season_max",2025
+"matched_bio_rows",14689
+"fallback_rows",850
+"unmatched_bio_links",962
+"ambiguous_bio_links",292
+"missing_salary_rows",3160
+"missing_performance_rows",1634
+"missing_team_rows",1634
+"multi_team_keys",681
+"salary_conflict_keys",2

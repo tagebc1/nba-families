@@ -1,0 +1,84 @@
+---
+title: "Sjekk av manglende observasjoner i NBA salary-data"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+library(tidyverse)
+
+project_root <- if (dir.exists("data")) {
+  "."
+} else if (dir.exists("../data")) {
+  ".."
+} else {
+  stop("Kunne ikke finne prosjektmappen. Kjør dette dokumentet fra prosjektroten eller fra scripts/-mappen.")
+}
+
+data_dir <- file.path(project_root, "data")
+results_dir <- file.path(project_root, "results")
+if (!dir.exists(results_dir)) {
+  dir.create(results_dir, recursive = TRUE)
+}
+
+salary_raw <- read_csv(file.path(data_dir, "NBA Player Salaries_2000-2025.csv"))
+stats_salary_raw <- read_csv(file.path(data_dir, "NBA Player Stats and Salaries_2000-2025.csv"))
+
+salary <- salary_raw %>%
+  rename(Year = Season) %>%
+  mutate(
+    Player = str_squish(Player),
+    Year = as.integer(Year)
+  ) %>%
+  distinct(Player, Year, .keep_all = TRUE)
+
+stats_salary <- stats_salary_raw %>%
+  mutate(
+    Player = str_squish(Player),
+    Year = as.integer(Year)
+  ) %>%
+  distinct(Player, Year, .keep_all = TRUE)
+
+missing_in_stats <- salary %>%
+  anti_join(stats_salary, by = c("Player", "Year")) %>%
+  arrange(Player, Year)
+
+missing_in_salary <- stats_salary %>%
+  anti_join(salary, by = c("Player", "Year")) %>%
+  arrange(Player, Year)
+
+write_csv(missing_in_stats, file.path(results_dir, "missing_salary_rows.csv"))
+write_csv(missing_in_salary, file.path(results_dir, "missing_stats_rows.csv"))
+```
+
+## Antall manglende kombinasjoner
+
+```{r}
+cat("Antall rader i salary som mangler i stats-filen:", nrow(missing_in_stats), "\n")
+cat("Antall rader i stats-filen som mangler i salary-filen:", nrow(missing_in_salary), "\n")
+```
+
+## Personer/sesonger som finnes i salary men ikke i stats-filen
+
+```{r}
+missing_in_stats %>%
+  count(Player, Year, sort = TRUE) %>%
+  head(20)
+```
+
+## Personer/sesonger som finnes i stats-filen men ikke i salary-filen
+
+```{r}
+missing_in_salary %>%
+  count(Player, Year, sort = TRUE) %>%
+  head(20)
+```
+
+## Eksempelrader
+
+```{r}
+missing_in_stats %>% head(10)
+```
+
+```{r}
+missing_in_salary %>% head(10)
+```

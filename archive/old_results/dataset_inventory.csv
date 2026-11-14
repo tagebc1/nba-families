@@ -1,0 +1,9 @@
+file,dataset_type,n_observations,variables,oldest_newest_season,draft_year_range
+all_seasons.csv,player-season,12844,...1; player_name; team_abbreviation; age; player_height; player_weight; college; country; draft_year; draft_round; draft_number; gp; pts; reb; ast; net_rating; oreb_pct; dreb_pct; usg_pct; ts_pct; ast_pct; season,1996 to 2022,1963 to 2022
+common_player_info.csv,player-career,4171,person_id; first_name; last_name; display_first_last; display_last_comma_first; display_fi_last; player_slug; birthdate; school; country; last_affiliation; height; weight; season_exp; jersey; position; rosterstatus; games_played_current_season_flag; team_id; team_name; team_abbreviation; team_code; team_city; playercode; from_year; to_year; dleague_flag; nba_flag; games_played_flag; draft_year; draft_round; draft_number; greatest_75_flag,NA,1947 to 2022
+father_son_list.csv,player-career,113,father; sons,NA,NA
+NBA Player Salaries_2000-2025.csv,player-season,12386,Player; Salary; Season,2000 to 2025,NA
+NBA Player Stats and Salaries_2000-2025.csv,player-season,10473,Player; Salary; Year; Pos; Age; Team; G; GS; MP; FG; FGA; FG%; 3P; 3PA; 3P%; 2P; 2PA; 2P%; eFG%; FT; FTA; FT%; ORB; DRB; TRB; AST; STL; BLK; TOV; PF; PTS,2000 to 2025,NA
+NBA Player Stats and Salaries_2010-2025.csv,player-season,7298,Player; Salary; Year; Pos; Age; Team; G; GS; MP; FG; FGA; FG%; 3P; 3PA; 3P%; 2P; 2PA; 2P%; eFG%; FT; FTA; FT%; ORB; DRB; TRB; AST; STL; BLK; TOV; PF; PTS,2010 to 2025,NA
+nba_siblings_list.csv,player-career,157,person_id; family_id; first_name; last_name; full_name,NA,NA
+nba-salaries.csv,player-season,9456,rank; name; position; team; salary; season,2000 to 2020,NA

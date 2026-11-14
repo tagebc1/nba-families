@@ -1,0 +1,128 @@
+.header {
+	color: #770000;
+        text-align: center;
+        font-weight: bold;
+        font-size: 30px;
+        font-family: impact, arial, helvetica;
+}
+
+.resultheader {
+        color: #770000;
+        font-weight: bold;
+        font-size: 15px;
+        font-family: helvetica;
+}
+
+.teamseasheader {
+        text-align: center;
+        color: #770000;
+        font-weight: bold;
+        font-size: 20px;
+        font-family: helvetica;
+}
+
+.decadeheader {
+        text-align: center;
+        font-weight: bold;
+        font-size: 15px;
+        font-family: helvetica;
+}
+
+.decadeheader a:link {color: #770000;}
+.decadeheader a:active {color: yellow;}
+.decadeheader a:visited {color: #770000;}
+.decadeheader a:hover {color: yellow;}
+
+tr.headfont {
+	background-color: #001100;
+	color: #FFFFFF;
+	font-weight: bold;
+	font-size: 12px;
+	font-family: arial;
+}
+
+tr.standfont1 {
+        background-color: #550000;
+        color: #FFFFFF;
+        font-size: 12px;
+        font-family: verdana, arial;
+}
+
+tr.standfont2 {
+        background-color: #414141;
+        color: #FFFFFF;
+        font-size: 12px;
+        font-family: verdana, arial;
+}
+
+.font1 {
+	background-color: #550000;
+	color: #FFFFFF;
+	font-size: 10px;
+	font-family: verdana, arial;
+}
+
+.font2 {
+	background-color: #414141;
+	color: #FFFFFF;
+	font-size: 10px;
+	font-family: verdana, arial;
+}
+
+tr.biggap {
+	background-color: #000000;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-family: verdana, arial;
+}
+
+tr.font1big {
+	background-color: #550000;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-family: verdana, arial;
+}
+
+.font1big a:link {color: #ffffff;}
+.font1big a:active {color: yellow;}
+.font1big a:visited {color: #ffffff;}
+.font1big a:hover {color: yellow;}
+
+tr.font2big {
+	background-color: #414141;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-family: verdana, arial;
+}
+
+.pickteam {
+	font-family: verdana;
+	color: #770000;
+	font-size: 10px;
+}
+
+tr.teamseasfont1 {
+        background-color: #004400;
+        color: #FFFFFF;
+        font-size: 10px;
+        font-family: arial;
+}
+
+tr.teamseasfont2 {
+        background-color: #414141;
+        color: #FFFFFF;
+        font-size: 10px;
+        font-family: arial;
+}
+
+.teamseaslinks {
+        text-align: center;
+        font-family: arial, helvetica, sans-serif;
+        font-size: 10px;
+        font-weight: bold;
+        color: #770000;
+}
+.teamseaslinks a:link {color: #770000;}
+.teamseaslinks a:active {color: purple;}
+.teamseaslinks a:visited {color: #770000;}
+.teamseaslinks a:hover {color: purple;}

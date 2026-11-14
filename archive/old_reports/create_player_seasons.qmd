@@ -1,0 +1,77 @@
+---
+title: "Create and validate player_seasons.csv"
+format: html
+execute:
+  echo: true
+  warning: true
+  error: true
+---
+
+## Formål
+
+Denne pipen bruker statsfilen som hovedkilde for 2000–2025. Salary-filen kan
+legge til salary-only-rader uten performance, og `all_seasons.csv` legger til
+historiske rader som ikke finnes i de nyere kildene. `player_bio.csv` endres
+aldri.
+
+## Kjør pipen
+
+```{r}
+result <- source("scripts/create_player_seasons.R")
+```
+
+## Strukturell validering
+
+```{r}
+seasons <- read.csv("data/player_seasons.csv", stringsAsFactors = FALSE,
+                    check.names = FALSE)
+bio <- read.csv("data/player_bio.csv", stringsAsFactors = FALSE,
+                check.names = FALSE)
+linkage <- read.csv("results/review_player_seasons/player_seasons_linkage.csv",
+                    stringsAsFactors = FALSE)
+report <- read.csv("results/player_seasons_report.csv",
+                   stringsAsFactors = FALSE)
+
+expected_columns <- c(
+  "playerID", "season", "first_name", "last_name", "full_name", "salary",
+  "position", "season_height", "season_weight", "team_abbreviation",
+  "games_played", "games_started", "minutes_pg", "fgm_pg", "fga_pg",
+  "fgpct_pg", "3pm_pg", "3pa_pg", "3p_pct", "2pm_pg", "2pa_pg", "2p_pct",
+  "efg%", "ftm_pg", "fta_pg", "ftpct", "oreb_pg", "dreb_pg", "treb_pg",
+  "ast_pg", "stl_pg", "blk_pg", "tov_pg", "pts_pg", "net_rating", "oreb_pct",
+  "dreb_pct", "usg_pct", "ts_pct", "ast_pct", "playerID_status",
+  "name_season_duplicate_flag"
+)
+stopifnot(identical(names(seasons), expected_columns))
+stopifnot(!anyDuplicated(paste(seasons$playerID, seasons$season)))
+stopifnot(all(nzchar(seasons$playerID)), all(!is.na(seasons$full_name)),
+          all(nzchar(seasons$full_name)), all(!is.na(seasons$first_name)),
+          all(nzchar(seasons$first_name)))
+stopifnot(all(seasons$season >= 1997 & seasons$season <= 2025))
+stopifnot(!any(seasons$season == 1996))
+stopifnot(all(seasons$playerID_status %in%
+              c("matched_bio", "created_not_in_bio",
+                "ambiguous_not_in_bio")))
+stopifnot(all(seasons$name_season_duplicate_flag %in% c(0, 1)))
+
+matched <- seasons$playerID_status == "matched_bio"
+created <- seasons$playerID_status != "matched_bio"
+stopifnot(all(seasons$playerID[matched] %in% bio$playerID))
+stopifnot(all(!seasons$playerID[created] %in% bio$playerID))
+stopifnot(all(grepl("^season_only_", seasons$playerID[created])))
+
+stopifnot(all(linkage$record_source %in%
+              c("stats", "salary_only", "all_seasons_historical")))
+stopifnot(all(c("player_seasons_duplicates.csv",
+                "player_seasons_ambiguous_names.csv",
+                "player_seasons_multi_team.csv") %in%
+              list.files("results/review_player_seasons")))
+
+report
+table(seasons$playerID_status)
+colSums(is.na(seasons))
+```
+
+QMD-en stopper ved strukturelle feil. Koblinger, salary-only-rader,
+historiske rader, duplikater og flere lag må i tillegg gjennomgås i
+review-filene før outputen brukes i analyse.

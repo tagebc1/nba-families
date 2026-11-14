@@ -69,9 +69,14 @@ docs/                       dokumentasjon
 
 termpaper/                  selve oppgaven: NBA_familier_prosjekt.qmd, references.bib, PDF
                             (figurer kopieres hit fra results/figures ved rendering)
+
+archive/                    tidligere versjoner: gamle script, data, resultater og rapporter
+                            fra før pipen ble skrevet om (brukes ikke av koden)
+Skittentøy/                 kladd og forsøk underveis: scraping-script for lønn 1991–99,
+                            lagrede nettsider, lister over manglende rader
 ```
 
-Lokalt finnes i tillegg mappene `archive/` (gamle script og rapporter),
-`Skittentøy/` (kladd) og `HowToTermpaper/` (oppgavetekst og mal). De er
-holdt utenfor repoet med `.gitignore`, sammen med HTML-rapportene og
-resten av Walsh-arkivet.
+`archive/` og `Skittentøy/` ligger i repoet for å vise arbeidsgangen, men
+ingenting der brukes av de nåværende scriptene. `HowToTermpaper/`
+(oppgavetekst og mal), HTML-rapportene og resten av Walsh-arkivet er holdt
+utenfor med `.gitignore`.

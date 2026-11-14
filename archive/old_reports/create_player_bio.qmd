@@ -1,0 +1,101 @@
+---
+title: "Player bio construction"
+format: html
+execute:
+  echo: true
+---
+
+This reproducible report creates only the player-level `data/player_bio.csv`
+from the approved player sources and the father-son family list. It deliberately
+does not read salary values into the output, and does not use height/weight or
+the prior merging script.
+
+```{r}
+inputs <- c("data/all_seasons.csv",
+  "data/archive_wyatt/csv/common_player_info.csv",
+  "data/NBA Player Salaries_2000-2025.csv",
+  "data/father_son_list.csv",
+  "data/nba_siblings_list.csv")
+stopifnot(all(file.exists(inputs)))
+file.info(inputs)[, c("size", "mtime")]
+input_counts <- data.frame(source = basename(inputs),
+  rows = vapply(inputs, function(path) nrow(read.csv(path)), integer(1)))
+input_counts
+```
+
+```{r}
+system2("Rscript", "scripts/create_player_bio.R")
+bio <- read.csv("data/player_bio.csv", check.names = FALSE, stringsAsFactors = FALSE)
+review <- read.csv("results/player_bio_review.csv", check.names = FALSE, stringsAsFactors = FALSE)
+family_verification <- read.csv("results/father_son_verification.csv",
+  check.names = FALSE, stringsAsFactors = FALSE)
+family_relations <- read.csv("data/family_relations.csv",
+  check.names = FALSE, stringsAsFactors = FALSE)
+```
+
+The script uses `common_player_info` as the authoritative register when a
+name matches. A unique valid normalized name found only in `all_seasons.csv`
+is included with a deterministic fallback ID and `other_flag = 1`; its
+identity fields come only from the deduplicated season rows. Salary-only names
+are not added to the bio table and remain review findings. Names in
+`father_son_list.csv` absent from all player sources are added as blank bio rows
+with deterministic IDs, so every listed relationship can be represented.
+Father/son flags and connected `familyID` values are assigned from the family
+list. Suffixes are
+preserved in output names; only an internal normalized key removes them.
+School selection is the first deterministic non-missing `all_seasons$college`
+value, then `common_player_info$school`. Missing birthdates are reported but
+are not treated as identity conflicts.
+
+```{r}
+expected <- c("playerID","first_name","last_name","full_name","school","country",
+  "draft_year","draft_round","draft_number","familyID","father_dummy","son_dummy",
+  "brother_dummy","twin_dummy","birthdate","greatest_75_flag","same_name_flag","other_flag")
+stopifnot(identical(names(bio), expected),
+          !anyDuplicated(bio$playerID),
+          all(nzchar(bio$playerID)), all(nzchar(bio$full_name)),
+          all(nzchar(bio$first_name)), all(nzchar(bio$last_name)),
+          all(bio$brother_dummy %in% 0:1, bio$twin_dummy %in% 0:1),
+          all(bio$same_name_flag %in% 0:1), all(bio$other_flag %in% 0:1))
+stopifnot(nrow(family_verification) == nrow(read.csv("data/father_son_list.csv")),
+          all(family_verification$status %in% c("linked", "linked_ambiguous_name")),
+          all(family_verification$father_exists),
+          all(family_verification$son_exists),
+          all(family_verification$father_dummy_ok),
+          all(family_verification$son_dummy_ok),
+          all(family_verification$shared_familyID))
+stopifnot(!anyDuplicated(family_relations$relation_ID),
+          all(family_relations$status %in% c("linked", "linked_ambiguous_name")),
+          all(family_relations$familyID > 0),
+          !anyDuplicated(family_relations[family_relations$relation_type == "sibling",
+                                          c("familyID", "person1_playerID", "person2_playerID")]),
+          all(family_relations$person1_match_count > 0),
+          all(family_relations$person2_match_count > 0))
+stopifnot(any(grepl("Jr\\.?|Sr\\.?|\\b(II|III|IV|V)\\b", bio$full_name)))
+fallback <- grepl("^fallback_", bio$playerID)
+stopifnot(all(bio$other_flag[fallback] == 1),
+          all(is.na(bio$birthdate[fallback]) | !nzchar(bio$birthdate[fallback])),
+          all(bio$familyID[fallback] == 0))
+summary(data.frame(players = nrow(bio),
+  fallback_players = sum(fallback),
+  same_name_players = sum(bio$same_name_flag == 1),
+  other_flag_players = sum(bio$other_flag == 1),
+  missing_birthdate = sum(is.na(bio$birthdate) | !nzchar(bio$birthdate)),
+  review_rows = nrow(review)))
+table(review$issue_type)
+```
+
+All findings (duplicate names, unmatched/ambiguous names, school conflicts,
+and invalid or missing dates) are consolidated in
+`results/player_bio_review.csv`. The per-relation verification is saved in
+`results/father_son_verification.csv`; the script stops if any listed father
+or son is missing, incorrectly flagged, or lacks a shared non-zero `familyID`.
+Rows with duplicate matching names receive status `linked_ambiguous_name` and
+remain flagged for manual review rather than being silently treated as unique.
+The relation table `data/family_relations.csv` contains one row per
+father--son or sibling pair. `relation_ID` identifies the individual relation,
+while `familyID` identifies the complete family. Father--son rows preserve
+direction; sibling pairs are stored only once.
+Sibling pairs are taken both from the explicit sibling source and, when two
+sons share a father in `father_son_list.csv`, from the derived shared-father
+rule. The `source` column distinguishes these cases.

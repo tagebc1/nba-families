@@ -1,0 +1,88 @@
+.firstlinks {font-family: arial, helvetica, sans-serif; font-size: 10px; color: #ffffff;}
+.firstlinks a:link {color: #ffffff;}
+.firstlinks a:active {color: yellow;}
+.firstlinks a:visited {color: #ffffff;}
+.firstlinks a:hover {color: yellow;}
+
+.standfont1 {font-family: arial, helvetica, sans-serif; font-size: 10px; color: #ffffff;}
+.standfont1 a:link {color: #ffffff;}
+.standfont1 a:active {color: yellow;}
+.standfont1 a:visited {color: #ffffff;}
+.standfont1 a:hover {color: yellow;}
+
+tr.headfont {
+	background-color: #001100;
+	color: #FFFFFF;
+	font-weight: bold;
+	font-size: 10px;
+	font-family: arial;
+}
+
+tr.headfontbig {
+	background-color: #001100;
+	color: #FFFFFF;
+	font-weight: bold;
+	font-size: 20px;
+	font-family: arial;
+}
+
+.mischead {
+	color: #444444;
+        text-align: center;
+        font-weight: bold;
+        font-size: 25px;
+        font-family: helvetica;
+}
+
+tr.misctablehead {
+        background-color: #000000;
+        color: #FFFFFF;
+        font-weight: bold;
+        font-size: 13px;
+        font-family: arial;
+}
+
+tr.misctable1big {
+	background-color: #111111;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-family: verdana, arial;
+}
+
+tr.misctable2big {
+	background-color: #373737;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-family: verdana, arial;
+}
+
+
+tr.abastandhead {
+	background-color: #373737;
+	color: #FFFFFF;
+	font-weight: bold;
+	font-size: 12px;
+	font-family: arial;
+}
+
+tr.abastandteam {
+	background-color: #770000;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-family: arial;
+}
+
+tr.whastandhead {
+	background-color: #373737;
+	color: #FFFFFF;
+	font-weight: bold;
+	font-size: 12px;
+	font-family: arial;
+}
+
+tr.whastandteam {
+	background-color: #770000;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-family: arial;
+}
