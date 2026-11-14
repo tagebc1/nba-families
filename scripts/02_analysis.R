@@ -459,7 +459,7 @@ save_tbl(data.frame(metric = c("n_player_seasons", "n_players", "r_squared", "rm
 
 # Most over- and underpaid player-seasons.
 pay_seasons <- pay %>%
-  transmute(full_name, season, team_abbreviation, age, pts_pg, reb_pg, ast_pg, minutes_pg,
+  transmute(full_name, season, team_abbreviation, age, games_played, pts_pg, reb_pg, ast_pg, minutes_pg,
             salary, predicted_salary, ratio, residual, nba_family)
 save_tbl(pay_seasons %>% slice_max(residual, n = 15), "overpaid_seasons")
 save_tbl(pay_seasons %>% slice_min(residual, n = 15), "underpaid_seasons")
@@ -471,6 +471,26 @@ pay_careers <- pay %>%
             mean_residual = mean(residual), ratio = salary_total / predicted_total) %>%
   ungroup() %>% filter(seasons >= 5)
 save_tbl(pay_careers %>% arrange(desc(mean_residual)), "salary_residuals_careers")
+
+# Named players from the public "overpaid" debate (Ben Simmons, Joel Embiid).
+# That debate is about availability as much as production. The model only
+# prices seasons with stats and at least min_games_season games, so a season
+# sat out on full pay is outside it. Both views are saved: the seasons the
+# model prices (with the career's rank among all careers), and the salary paid
+# in seasons the model never sees.
+debated <- c("Ben Simmons", "Joel Embiid")
+debated_seasons <- pay_seasons %>% filter(full_name %in% debated) %>% arrange(full_name, season)
+save_tbl(debated_seasons, "salary_debated_seasons")
+outside_model <- seasons %>%
+  filter(!is.na(salary), !paste(playerID, season) %in% paste(pay$playerID, pay$season)) %>%
+  group_by(playerID) %>%
+  summarise(seasons_outside_model = n(), salary_outside_model = sum(salary))
+debated_careers <- pay_careers %>% arrange(desc(mean_residual)) %>%
+  mutate(rank_overpaid = row_number(), n_careers = n()) %>%
+  filter(full_name %in% debated) %>%
+  left_join(outside_model, by = "playerID") %>%
+  mutate(across(c(seasons_outside_model, salary_outside_model), ~ coalesce(.x, 0)))
+save_tbl(debated_careers, "salary_debated_careers")
 top_pay <- bind_rows(
   pay_careers %>% slice_max(mean_residual, n = 10) %>% mutate(group = "Overpaid"),
   pay_careers %>% slice_min(mean_residual, n = 10) %>% mutate(group = "Underpaid")) %>%

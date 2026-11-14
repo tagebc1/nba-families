@@ -25,3 +25,6 @@ reports/*_files/
 termpaper/*_files/
 termpaper/*.typ
 termpaper/figures/
+
+/.quarto/
+**/*.quarto_ipynb

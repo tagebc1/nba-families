@@ -70,6 +70,8 @@ kable(read.csv("results/analysis/salary_model_fit.csv"), digits = 3)
 fig_pay
 kable(premium, digits = 3)
 fig_pay_family
+kable(debated_careers, digits = 2)
+kable(debated_seasons, digits = 2)
 ```
 
 ## Kontroll mot kjente svar

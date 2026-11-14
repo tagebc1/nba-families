@@ -205,3 +205,8 @@ overpaid underpaid grafen er ikke straight up bullshit men kanskje en feil, jeg 
 
 - Søskenlisten: Gemini-scriptet som skulle gjenskape `nba_siblings_list.csv` fra FanSided-listen var feil for alle linjer (siste fornavn ble en del av etternavnet). Skrev `scripts/00_make_siblings_list.R` som parser listen riktig. Sammenligning med den gamle KI-lagde filen viste at den hadde slått sammen «Harvey and Horace Grant» og «Jerami and Jerian Grant» til én familie, slik at far og sønn ble regnet som brødre (4 gale søskenpar). Filen er nå generert av scriptet; relasjoner 209 → 205, alt annet uendret. Alle rapporter og oppgaven rendret på nytt.
 - Kodegjennomgang av alle script. Én reell feil rettet: `experience` i lønnsmodellen var sesonger siden første sesong *i data* (1997+), som undervurderte erfaringen til alle som debuterte før 1997. Bruker nå `career_start` fra registeret. Scraperen for far–sønn-listen skriver nå til `data/father_son_list.csv`. Analysen og rapportene kjørt på nytt.
+
+## 14.11.26 ##
+- Lagt Ben Simmons og Joel Embiid inn i lønnsdelen (del 9 i `02_analysis.R`), siden begge ofte kalles overbetalte. Nye tabeller: `salary_debated_careers.csv` (rangering blant 848 karrierer, lønn utenfor modellen) og `salary_debated_seasons.csv` (per sesong). Simmons er nr. 22 med lønn 2,9 ganger predikert, Embiid betales omtrent som predikert (1,03). Modellen ser bare sesonger med stats og minst 10 kamper, så Simmons sin 2021-22 uten kamper er ikke med. Dette står nå i oppgaven.
+- Sjekket om Cohen's d er pensum: står ikke i noen forelesning eller seminar. Bootstrap (L8, seminar 1 og 4) og t-test (seminar 1) gjør det. Lagt inn en definisjon av d i metodedelen.
+- Gjennomgang av oppgaveteksten: færre semikolon, 209 -> 205 relasjoner i sammendraget, småfeil.

@@ -1,0 +1,3 @@
+"playerID","full_name","nba_family","seasons","salary_total","predicted_total","mean_residual","ratio","rank_overpaid","n_careers","seasons_outside_model","salary_outside_model"
+"p_1627732","Ben Simmons",FALSE,7,174842286,59841958.9794186,0.781417529471298,2.92173399704601,22,848,2,44067180
+"p_203954","Joel Embiid",FALSE,9,291648733,284199130.986891,0.0680670753557948,1.02621261362496,374,848,2,9054600

@@ -134,6 +134,10 @@ NBA-debut (fra `career_start` i registeret, ellers første sesong i data), `seas
 og `log_salary`. Lønnsmodellen i del 9 gir `predicted_salary`, `residual`
 (i log-poeng: 0,69 = tjente dobbelt så mye som predikert) og `ratio` =
 faktisk/predikert lønn.
+Modellen priser bare sesonger med statistikk og minst 10 kamper. Lønn i
+sesonger en spiller satt ute (f.eks. Ben Simmons 2021-22) er derfor utenfor
+modellen. `salary_debated_careers.csv` viser dette for Simmons og Embiid,
+med rangering blant alle karrierer og lønn utenfor modellen.
 
 ## 6. Anbefalt bruk
 

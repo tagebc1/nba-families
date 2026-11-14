@@ -6,7 +6,7 @@ author:
 date: today
 date-format: D MMMM YYYY
 abstract: |
-  Omtrent hver tiende NBA-spiller har en far, sønn eller bror som også har spilt i ligaen. Vi undersøker hvilke NBA familier som er størst og har tjent mest, om spillere med NBA-familie skiller seg fra andre i blant annet resultatene fra banen og lønn, og om nepotisme fører til at noen spillere betales mer enn prestasjonene tilsier. For å svare bygget vi et datasett av 5 129 spillere, 15 272 spiller-sesonger (1997–2025) og 209 familierelasjoner fra fem råkilder som ikke deler noen felles ID, der spillere måtte kobles ved hjelp av navn, fødselsdato, draftår og alder. Spillere med NBA-familie spiller flere kamper, flere minutter og flere sesonger enn andre, men gitt prestasjon, alder og erfaring tjener de bare rundt tre prosent mer, og forskjellen er ikke statistisk sikker. Sønner er heller ikke høyere enn fedrene sine.
+  Omtrent hver tiende NBA-spiller har en far, sønn eller bror som også har spilt i ligaen. Vi undersøker hvilke NBA familier som er størst og har tjent mest, om spillere med NBA-familie skiller seg fra andre i blant annet resultatene fra banen og lønn, og om nepotisme fører til at noen spillere betales mer enn prestasjonene tilsier. For å svare bygget vi et datasett av 5 129 spillere, 15 272 spiller-sesonger (1997–2025) og 205 familierelasjoner fra fem råkilder som ikke deler noen felles ID, der spillere måtte kobles ved hjelp av navn, fødselsdato, draftår og alder. Spillere med NBA-familie spiller flere kamper, flere minutter og flere sesonger enn andre, men gitt prestasjon, alder og erfaring tjener de bare rundt tre prosent mer, og forskjellen er ikke statistisk sikker. Sønner er heller ikke høyere enn fedrene sine.
 format:
   typst:
     keep-typ: true
@@ -38,6 +38,7 @@ share  <- read.csv("results/analysis/family_share_by_season.csv")
 top    <- read.csv("results/analysis/top_earning_players.csv")
 review <- read.csv("results/name_matching_review.csv")
 fs     <- read.csv("results/analysis/father_vs_son_paired.csv")
+deb    <- read.csv("results/analysis/salary_debated_careers.csv")
 n_tot  <- function(x) format(x, big.mark = " ")
 musd   <- function(x) paste0(round(x / 1e6), " mill. USD")
 pct    <- function(x, d = 0) percent(x, accuracy = 10^(-d))
@@ -60,14 +61,17 @@ no <- function(x) unname(ifelse(x %in% names(no_label), no_label[x], x))
 rolle <- function(x) ifelse(x == "son", "sønn", ifelse(x == "brother", "bror", x))
 ```
 
+```{=typst}
+#show figure: set block(breakable: true)
+```
+
 # Innledning og mål
 
-Dersom man følger med på NBA legger man fort merke til at familienavn går igjen. Curry, Thompson, Holiday, Antetokounmpo og James er kjente NBA familier med flere aktive eller nylig aktive spillere, og listen over sønner av tidligere NBA-spillere vokser hvert årlige draft. Lenge har det reist et spørsmål i meg og flere andre som følger med på NBA om nepotisme i ligaen: 
-*Påvirker familietilknytninger til NBA karrieren til en spiller?*
+Dersom man følger med på NBA legger man fort merke til at familienavn går igjen. Curry, Thompson, Holiday, Antetokounmpo og James er kjente NBA familier med flere aktive eller nylig aktive spillere, og listen over sønner av tidligere NBA-spillere vokser hvert årlige draft. Lenge har det reist et spørsmål i meg og flere andre som følger med på NBA om nepotisme i ligaen: *Påvirker familietilknytninger til NBA karrieren til en spiller?*
 
-1. Hvilke familier er størst, hvilke har tjent mest, og blir det flere familiespillere i ligaen over tid?
-2. Skiller spillere med NBA-familie seg fra andre i statistikk, spilletid og karrierelengde, også når sesong, alder og posisjon tas hensyn til?
-3. Betales familiespillere bedre enn prestasjonene på banen viser?
+1.  Hvilke familier er størst, hvilke har tjent mest, og blir det flere familiespillere i ligaen over tid?
+2.  Skiller spillere med NBA-familie seg fra andre i statistikk, spilletid og karrierelengde, også når sesong, alder og posisjon tas hensyn til?
+3.  Betales familiespillere bedre enn prestasjonene på banen viser?
 
 I tillegg ser vi kort på et spørsmål som fulgte av at vi har høyde til både fedre og sønner: Er sønner høyere enn fedrene sine?
 
@@ -77,45 +81,48 @@ Hovedarbeidet i prosjektet er ikke analysen, men dataene. Ingen offentlig kilde 
 
 ## Kilder og hvordan vi kom dit
 
-Det første valget var basketball-reference.com, som er Mekka for historisk basketballstatistikk, men nettstedet blokkerer scraping etter få forespørsler, og betalte API-er var utenfor rekkevidde på priser opp til 200$ ment for større bedrifter og profesjonelle. Jeg forsøkte også å hente lønn for 1990-tallet fra hoopshype.com slik det ene datasettet jeg endte med å bruke gjør, men ble stoppet av en betalingsmur. Løsningen ble tre ferdige datasett fra Kaggle, alle bygget på NBA sine egne data, pluss to familielister vi laget selv (@tbl-sources). Merknad: Det finnes stats and salaries data fra 2000-2025 i ratin21 github repoet selv om det står 2010-2025.
+Det første valget var basketball-reference.com, som er Mekka for historisk basketballstatistikk, men nettstedet blokkerer scraping etter få forespørsler, og betalte API-er var utenfor rekkevidde på priser opp til 200\$ ment for større bedrifter og profesjonelle. Jeg forsøkte også å hente lønn for 1990-tallet fra hoopshype.com slik det ene datasettet jeg endte med å bruke gjør, men ble stoppet av en betalingsmur. Løsningen ble tre ferdige datasett fra Kaggle, alle bygget på NBA sine egne data, pluss to familielister vi laget selv (@tbl-sources). Merknad: Det finnes stats and salaries data fra 2000-2025 i ratin21 github repoet selv om det står 2010-2025.
 
 | Kilde | Enhet | Periode | Rader | Innhold |
-|:---|:---|:---|---:|:---|
+|:--------------|:--------------|:--------------|--------------:|:--------------|
 | all_seasons [@kaggle-allseasons] | spiller-sesong | 1997–2023 | 12 844 | alder, høyde, vekt, poeng, returer, assists, avanserte mål |
 | Stats and Salaries [@kaggle-salaries] | spiller-sesong | 2000–2025 | 10 473 | lønn, posisjon, lag, box score |
 | Salaries [@kaggle-salaries] | spiller-sesong | 2000–2025 | 12 386 | lønn der statsfilen mangler |
 | NBA-register [@kaggle-wyatt] | spiller | 1946–2023 | 4 831 | offisiell ID, fødselsdato, karriereår, draft |
-| Far–sønn-liste [@wiki-secondgen] | par | | 113 | scrapet fra Wikipedia med rvest [@rvest] |
-| NBA brødre-liste [@fansided-brothers] | brødregruppe | | 157 | laget ved å kopiere listen fra nettartikkel og kjøre script som produserer forholdene i en csv fil |
+| Far–sønn-liste [@wiki-secondgen] | par |  | 113 | scrapet fra Wikipedia med rvest [@rvest] |
+| NBA brødre-liste [@fansided-brothers] | brødregruppe |  | 157 | laget ved å kopiere listen fra nettartikkel og kjøre script som produserer forholdene i en csv fil |
 
-: Råkildene. Filene ligger uendret i `data/`; alt som gjøres med dem, skjer i kode. {#tbl-sources}
+: Råkildene. Filene ligger uendret i `data/`. Alt som gjøres med dem, skjer i kode. {#tbl-sources}
 
-Et første forsøk på å merge datakilder, med debugging hjelp fra KI-assistent, ga et datasett som så riktig ut, men var feil. Tre feil ble avdekket da jeg kontrollerte kjente spillere. Registeret vi brukte som ID-kilde dekket bare 4 171 av 4 831 spillere, så for eksempel spillere som Andre Iguodala og Brook Lopez fantes ikke. Koden som skulle fjerne suffikser som «Jr.» og «III» brukte ordgrensen `\b`, som R sin standard regex-motor ignorerer, slik at «Perry Jones» og «Perry Jones III» ble to personer og «C.J. Wilcox» og «CJ Wilcox» likeså. Og kallenavn som «Steve Smith» for Steven Smith ble aldri koblet. Pipen ble derfor skrevet på nytt, og resten av dette kapittelet beskriver den endelige versjonen av kode som slår sammen datasettene til brukbare output csv filer. 
+Et første forsøk på å merge datakilder, med debugging hjelp fra KI-assistent, ga et datasett som så riktig ut, men var feil. Tre feil ble avdekket da jeg kontrollerte kjente spillere. Registeret vi brukte som ID-kilde dekket bare 4 171 av 4 831 spillere, så for eksempel spillere som Andre Iguodala og Brook Lopez fantes ikke. Koden som skulle fjerne suffikser som «Jr.» og «III» brukte ordgrensen `\b`, som R sin standard regex-motor ignorerer, slik at «Perry Jones» og «Perry Jones III» ble to personer og «C.J. Wilcox» og «CJ Wilcox» likeså. Og kallenavn som «Steve Smith» for Steven Smith ble aldri koblet. Pipen ble derfor skrevet på nytt, og resten av dette kapittelet beskriver den endelige versjonen av kode som slår sammen datasettene til brukbare output csv filer.
 
 ## Koblingsproblemet
 
 Hjertet til problematikken med datamergingen var en vanskelig join: tabellene skal kobles på navn, men navn er verken unike eller stavet likt. I registeret finnes 106 navn som tilhører to eller flere spillere, som to «Marcus Williams» som spilte samtidig i 2008-09, og far og sønn kan hete nøyaktig det samme, som Mike Dunleavy og Mike Dunleavy. Løsningen er en regelbasert versjon av probabilistisk matching, der hvert navn i hver sesong kobles én gang og resultatet brukes i alle outputfilene:
 
-1. **Normaliser navnet.** Små bokstaver, ingen punktum eller apostrof, slik at «O.G. Anunoby» og «OG Anunoby» får samme nøkkel. En manuell aliastabell med 55 rader oversetter kallenavn og feilstavinger (Louis Williams -> Lou Williams). Tabellen ble fylt ved å liste alle umatchede navn sammen med kandidater i registeret med samme etternavn og overlappende år, og så avgjøre hver rad for hånd.
-2. **Finn kandidater.** Spillere i registeret med samme nøkkel; finnes ingen, prøves nøkkelen uten generasjonssuffiks.
-3. **Skill navnebrødre.** Når et navn har flere kandidater i registeret, fjerner vi først dem som ikke kan ha spilt den sesongen, fordi den ligger før deres første sesong eller draftår, eller lenge etter deres siste. Deretter bruker vi alder: sesongkildene oppgir alder, registeret har fødselsdato, så vi regner ut hvor gammel hver kandidat ville vært den sesongen og beholder den som stemmer. For at dette skal virke måtte vi vite hvilken dato kildene regner alder fra. Ved å teste ulike datoer på spillere med entydige navn fant vi at statsfilen bruker 1. februar og all_seasons 1. juli; med disse datoene stemmer beregnet og oppgitt alder for 99,5 prosent av radene. Står én kandidat igjen, kobles raden til ham; står flere igjen, merkes den som tvetydig og går videre til neste steg.
+1.  **Normaliser navnet.** Små bokstaver, ingen punktum eller apostrof, slik at «O.G. Anunoby» og «OG Anunoby» får samme nøkkel. En manuell aliastabell med 55 rader oversetter kallenavn og feilstavinger (Louis Williams -\> Lou Williams). Tabellen ble fylt ved å liste alle umatchede navn sammen med kandidater i registeret med samme etternavn og overlappende år, og så avgjøre hver rad for hånd.
 
-4. **Lønnsrader uten alder** som fortsatt er tvetydige, får personen som er identifisert for samme navn i nærmeste sesong. Fire rader forble tvetydige og ble fjernet.
-5. **Spillere utenfor registeret** får en navnebasert ID (`n_victor_wembanyama`). Det gjelder `r v("bio_name_only")` spillere: rookies etter 2023, spillere som bare spilte i ABA før 1976, og noen få fra før 1946.
+2.  **Finn kandidater.** Spillere i registeret med samme nøkkel. Finnes ingen, prøves nøkkelen uten generasjonssuffiks.
 
-Familielistene kobles med samme nøkler, men par løses i fellesskap: når far og sønn lander på samme person, beholdes den som matchet eksakt, og den andre får nærmeste navnebror etter fødselsår, eller en ny rad. Søsken med flere navnebrødre velges ut fra hvem som er nærmest de andre brødrene i alder. Alle 113 far–sønn-par ble koblet; to av dem (Guokas og Vaughn) bygger på en antakelse om hvilken generasjon registeret inneholder og er merket i kontrollfilen.
+3.  **Skill navnebrødre.** Når et navn har flere kandidater i registeret, fjerner vi først dem som ikke kan ha spilt den sesongen, fordi den ligger før deres første sesong eller draftår, eller lenge etter deres siste. Deretter bruker vi alder: sesongkildene oppgir alder, registeret har fødselsdato, så vi regner ut hvor gammel hver kandidat ville vært den sesongen og beholder den som stemmer. For at dette skal virke måtte vi vite hvilken dato kildene regner alder fra. Ved å teste ulike datoer på spillere med entydige navn fant vi at statsfilen bruker 1. februar og all_seasons 1. juli. Med disse datoene stemmer beregnet og oppgitt alder for 99,5 prosent av radene. Står én kandidat igjen, kobles raden til ham. Står flere igjen, merkes den som tvetydig og går videre til neste steg.
+
+4.  **Lønnsrader uten alder** som fortsatt er tvetydige, får personen som er identifisert for samme navn i nærmeste sesong. Fire rader forble tvetydige og ble fjernet.
+
+5.  **Spillere utenfor registeret** får en navnebasert ID (`n_victor_wembanyama`). Det gjelder `r v("bio_name_only")` spillere: rookies etter 2023, spillere som bare spilte i ABA før 1976, og noen få fra før 1946.
+
+Familielistene kobles med samme nøkler, men par løses i fellesskap: når far og sønn lander på samme person, beholdes den som matchet eksakt, og den andre får nærmeste navnebror etter fødselsår, eller en ny rad. Søsken med flere navnebrødre velges ut fra hvem som er nærmest de andre brødrene i alder. Alle 113 far–sønn-par ble koblet. To av dem (Guokas og Vaughn) bygger på en antakelse om hvilken generasjon registeret inneholder og er merket i kontrollfilen.
 
 ## Output
 
 Resultatet er tre csv tabellfiler som deler nøkkelen `playerID`, i praksis en liten relasjonsdatabase (@tbl-output). IDene er NBA sine egne personID-er med prefikset `p_`, slik at `p_2544` er LeBron James også på nba.com.
 
 | Fil | Enhet | Rader | Innhold |
-|:---|:---|---:|:---|
+|:-----------------|:-----------------|-----------------:|:-----------------|
 | player_bio | spiller | `r n_tot(v("bio_players"))` | navn, fødselsdato, høyde, draft, karriereår, familyID, far/sønn/bror-dummyer |
 | player_seasons | spiller-sesong | `r n_tot(v("season_rows"))` | lag, posisjon, alder, lønn, box score per kamp, avanserte mål |
 | family_relations | par | `r v("family_relations")` | person 1, person 2, relasjonstype, kilde |
 
-: De tre outputfilene. `player_seasons.csv` er et ubalansert panel 1997–2025; lønn finnes fra 2000. {#tbl-output}
+: De tre outputfilene. `player_seasons.csv` er et ubalansert panel 1997–2025, og lønn finnes fra 2000. {#tbl-output}
 
 ## Hvordan sjekkes koblinger?
 
@@ -131,7 +138,7 @@ Alle beregninger er gjort i R med tidyverse [@tidyverse] og ggplot2 [@ggplot2], 
 
 **Karrieretabell.** For hver spiller beregnes gjennomsnitt over sesongene, vektet med antall kamper, samt antall sesonger, kamper per sesong og lønn per sesong. Sammenligninger mellom grupper bruker spillere med minst 20 kamper, fordi noen få kamper gir ekstreme per-kamp-tall.
 
-**Gruppeforskjeller.** Forskjellen mellom spillere med og uten NBA-familie måles som standardisert gjennomsnittsforskjell (Cohen's *d*) med 95 %-intervall fra 1 000 bootstrap-trekk, slik at tall på ulik skala kan sammenlignes i én figur.
+**Gruppeforskjeller.** Forskjellen mellom spillere med og uten NBA-familie måles som standardisert gjennomsnittsforskjell (Cohen's *d*), altså forskjellen i gjennomsnitt delt på det samlede standardavviket, slik at tall på ulik skala kan sammenlignes i én tabell. Usikkerheten er et 95 %-intervall fra 1 000 bootstrap-trekk, som i seminar 1 og 4.
 
 **Regresjon på panelet.** For å holde epoke, alder og posisjon fast estimerer vi på spiller–sesong-nivå
 
@@ -147,18 +154,19 @@ der $\delta_t$ er en dummy per sesong. Spiller-fixed-effects er ikke brukt, ford
 
 ## Familiene
 
+Fire familier har fire spillere (Russell, Jones, Grant og Barry) og tretten har tre. Målt i lønn (@fig-salary) topper James-familien med `r musd(fam$salary_total[1])`, men det er LeBron alene: Bronny James står for `r pct(1 - fam$top_earner_share[1], 1)`. Curry-familien er den eneste blant de øverste der flere medlemmer bidrar vesentlig, mens Gasol-brødrene deler jevnest. Sett mot enkeltspillere slår familiene bare så vidt: LeBron James og Kevin Durant alene tjener mer enn alle familier unntatt James og Curry. Andelen av ligaens spillere som har en far, sønn eller bror i NBA var `r pct(share$share[share$season == 1997])` i 1997, falt til `r pct(share$share[share$season == 2008])` i 2008 og har siden steget til `r pct(share$share[share$season == 2025])` i 2025 (@fig-share).
+
 ```{r}
 #| label: fig-salary
 #| fig-cap: "Samlet lønn 2000–2025 for de tolv familiene som har tjent mest. Blått er familiens toppinntekt, grått resten av familien."
+#| out-width: 85%
 fig("fig02_family_salary.png")
 ```
-
-Fire familier har fire spillere (Russell, Jones, Grant og Barry) og tretten har tre. Målt i lønn (@fig-salary) topper James-familien med `r musd(fam$salary_total[1])`, men det er LeBron alene: Bronny James står for `r pct(1 - fam$top_earner_share[1], 1)`. Curry-familien er den eneste blant de øverste der flere medlemmer bidrar vesentlig, mens Gasol-brødrene deler jevnest. Sett mot enkeltspillere slår familiene bare så vidt: LeBron James og Kevin Durant alene tjener mer enn alle familier unntatt James og Curry. Andelen av ligaens spillere som har en far, sønn eller bror i NBA var `r pct(share$share[share$season == 1997])` i 1997, falt til `r pct(share$share[share$season == 2008])` i 2008 og har siden steget til `r pct(share$share[share$season == 2025])` i 2025 (@fig-share).
 
 ```{r}
 #| label: fig-share
 #| fig-cap: "Andel av spillerne hver sesong som har en far, sønn eller bror som har spilt i NBA."
-#| out-width: 75%
+#| out-width: 65%
 fig("fig05_family_share_over_time.png")
 ```
 
@@ -193,10 +201,28 @@ Når sesong, alder og posisjon holdes fast (@tbl-panel), krymper forskjellene. S
 
 Lønnsmodellen forklarer `r pct(payfit$value[3])` av variasjonen i log lønn over `r n_tot(payfit$value[1])` spiller-sesonger. Residualene gir først et bilde av lønnsstrukturen (@fig-pay i appendiks): de mest overbetalte karrierene er store, tunge spillere på lange kontrakter som Tiago Splitter og Nikola Pekovic, som per-kamp-tall ikke verdsetter, og de mest underbetalte er spillere på minstelønn som likevel leverte tall. Ingen av de tjue har NBA-familie.
 
+To spillere som ofte trekkes fram som overbetalte i NBA-debatten er Ben Simmons og Joel Embiid, og modellen gir dem svært ulik dom (@tbl-debated). Simmons er nummer `r deb$rank_overpaid[deb$full_name == "Ben Simmons"]` av `r deb$n_careers[1]` karrierer med minst fem betalte sesonger, med lønn `r round(deb$ratio[deb$full_name == "Ben Simmons"], 1)` ganger det prestasjonene tilsier. Embiid betales omtrent som predikert, fordi per-kamp-tallene hans er blant de beste i ligaen. Debatten om begge handler likevel like mye om tilgjengelighet som om produksjon, og her har modellen en blind flekk: den ser bare sesonger med statistikk og minst ti kamper. Simmons fikk `r musd(deb$salary_outside_model[deb$full_name == "Ben Simmons"])` i `r deb$seasons_outside_model[deb$full_name == "Ben Simmons"]` sesonger han i praksis ikke spilte, blant dem hele 2021–22, og disse er utenfor modellen. Tas de med, er han enda mer overbetalt enn tabellen viser. Embiid sine to første år uten kamper var på rookie-lønn og endrer lite.
+
+```{r}
+#| label: tbl-debated
+#| tbl-cap: "Ben Simmons og Joel Embiid i lønnsmodellen. «Utenfor modellen» er lønn i sesonger uten statistikk eller med under ti kamper, som modellen ikke priser."
+m <- function(x) round(x / 1e6)
+data.frame(Variabel = c("Sesonger i modellen", "Lønn i modellen (mill. USD)", "Predikert lønn (mill. USD)",
+                        "Faktisk/predikert", paste0("Rangering blant ", deb$n_careers[1], " karrierer"),
+                        "Sesonger utenfor modellen", "Lønn utenfor modellen (mill. USD)"),
+           `Ben Simmons` = with(deb[deb$full_name == "Ben Simmons", ],
+                                c(seasons, m(salary_total), m(predicted_total), sprintf("%.2f", ratio), rank_overpaid,
+                                  seasons_outside_model, m(salary_outside_model))),
+           `Joel Embiid` = with(deb[deb$full_name == "Joel Embiid", ],
+                                c(seasons, m(salary_total), m(predicted_total), sprintf("%.2f", ratio), rank_overpaid,
+                                  seasons_outside_model, m(salary_outside_model))),
+           check.names = FALSE) %>% kable(align = "lrr")
+```
+
 ```{r}
 #| label: fig-premium
 #| fig-cap: "Gjennomsnittlig residual fra lønnsmodellen etter familiegruppe, spiller-sesonger 2000–2025, med klyngerobust 95 %-intervall. Null betyr betalt som andre med samme tall, alder og erfaring."
-#| out-width: 85%
+#| out-width: 75%
 fig("fig08_salary_residual_family.png")
 ```
 
@@ -204,25 +230,25 @@ Svaret på nepotisme-spørsmålet i lønn er nei, så langt dataene rekker. Gitt
 
 ## Er sønner høyere enn fedre?
 
-Nei. For de `r hgt$n_pairs` parene med høyde for begge er sønnene i snitt `r round(abs(hgt$mean_diff), 1)` cm lavere enn fedrene (p = `r round(hgt$p_paired_t, 2)`), og bare `r pct(hgt$share_son_taller)` av sønnene er høyere enn faren. Siden ligaen har blitt høyere over tid, sammenlignet vi også hver spiller med ligasnittet for sitt debuttiår; da er forskjellen `r round(abs(hgt$mean_diff_vs_league), 1)` cm i fedrenes favør (p = `r round(hgt$p_vs_league, 3)`). Fedrene var uvanlig høye for sin tid, sønnene er nærmere snittet: regresjon mot gjennomsnittet.
+Nei. For de `r hgt$n_pairs` parene med høyde for begge er sønnene i snitt `r round(abs(hgt$mean_diff), 1)` cm lavere enn fedrene (p = `r round(hgt$p_paired_t, 2)`), og bare `r pct(hgt$share_son_taller)` av sønnene er høyere enn faren. Siden ligaen har blitt høyere over tid, sammenlignet vi også hver spiller med ligasnittet for sitt debuttiår. Da er forskjellen `r round(abs(hgt$mean_diff_vs_league), 1)` cm i fedrenes favør (p = `r round(hgt$p_vs_league, 3)`). Fedrene var uvanlig høye for sin tid, sønnene er nærmere snittet: regresjon mot gjennomsnittet.
 
 ## Evaluering
 
-Tre ting gir oss tillit til resultatene. For det første stemmer kjente størrelser: LeBron sin lønn mot Spotrac, familiemedlemmene i Curry- og Dunleavy-familiene, og at alle 113 far–sønn-par fra Wikipedia er koblet. For det andre er hovedfunnet robust for spesifikasjon: volumfordelen for familiespillere finnes både i gruppesnitt, i karriereregresjonen med debuttiår (appendiks) og i panelet med sesong-dummyer, selv om størrelsen krymper. For det tredje er usikkerheten vist med intervaller som tar hensyn til at slektninger henger sammen. Det som ikke kan kontrolleres, er hvem som nådde NBA. Hvis familie hjelper svakere spillere inn i ligaen, burde familiespillere i snitt vært dårligere; at de i stedet spiller mer, kan skyldes talent, nettverk eller at trenere stoler på kjente navn. Dataene skiller ikke mellom disse.
+Tre ting gir tillit til resultatene. For det første stemmer kjente størrelser: LeBron sin lønn mot Spotrac, familiemedlemmene i Curry- og Dunleavy-familiene, og at alle 113 far–sønn-par fra Wikipedia er koblet. For det andre er hovedfunnet robust for spesifikasjon: volumfordelen for familiespillere finnes både i gruppesnitt, i karriereregresjonen med debuttiår (appendiks) og i panelet med sesong-dummyer, selv om størrelsen krymper. For det tredje er usikkerheten vist med intervaller som tar hensyn til at slektninger henger sammen. Det som ikke kan kontrolleres, er hvem som nådde NBA. Hvis familie hjelper svakere spillere inn i ligaen, burde familiespillere i snitt vært dårligere. At de i stedet for dette spiller mer, kan skyldes talent, nettverk eller at trenere stoler på kjente navn. Dataene skiller ikke mellom disse.
 
 # Konklusjon
 
-Vi bygget et koblet datasett for NBA-spillere, sesonger og familierelasjoner fra kilder uten felles ID, med en dokumentert og kontrollerbar koblingsregel, og brukte det til tre spørsmål. James-familien har tjent mest, men det er én spiller; Curry-familien er den eneste reelle flerinntektsfamilien, og andelen spillere med NBA-familie har økt til rundt tolv prosent. Spillere med NBA-familie spiller flere minutter, kamper og sesonger enn andre, men er ikke mer effektive, og forskjellen blir mindre når epoke holdes fast. Gitt prestasjon betales de ikke bedre.
+Vi bygget et koblet datasett for NBA-spillere, sesonger og familierelasjoner fra kilder uten felles ID, med en dokumentert og kontrollerbar koblingsregel, og brukte det til å forsøke å besvare tre hovedspørsmål. James-familien har tjent mest, men kun på grunn av LeBron alene. Curry-familien er den eneste reelle flerinntektsfamilien som konkurrerer med James-familien, og andelen spillere med NBA-familie har økt til rundt tolv prosent. Spillere med NBA-familie spiller flere minutter, kamper og sesonger enn andre, men er ikke mer effektive, og forskjellen blir mindre når epoke holdes fast. Gitt prestasjon betales de ikke bedre.
 
-Begrensningene følger av kildene. Lønn finnes bare fra 2000, så de fleste fedrene mangler lønnsdata, og statistikk bare fra 1997, så far–sønn-sammenligninger av spill bygger på 28 par. Familielistene kommer fra Wikipedia og en nettartikkel og er neppe komplette. NBA-registeret er fra 2023, så rookies fra de to siste sesongene mangler fødselsdato. Og analysen er beskrivende: vi observerer bare dem som kom gjennom nåløyet.
+Begrensningene følger av kildene. Lønn finnes bare fra og med år 2000, så de fleste fedrene mangler lønnsdata, og spillerstatistikk er bare fra 1997, så far–sønn-sammenligninger av resultater fra banen bygger på 28 par. Familielistene kommer fra Wikipedia og en nettartikkel og er neppe 100% komplette. NBA-registeret er fra 2023, så rookies fra de to siste sesongene mangler fødselsdato. Og analysen er beskrivende: vi observerer bare spillere som faktisk kom seg til NBA.
 
 # Bruk av KI-verktøy {.unnumbered}
 
-Språkmodeller ble brukt gjennom hele prosjektet, og en stor del av koden er skrevet av dem under vår styring. Tidlig i prosjektet brukte vi KI-assistenten i Positron til å lage oversikter over råfilene og til et første forsøk på sammenslåing, styrt av planer vi skrev selv. Søskenlisten ble først generert ved å gi Claude en nettartikkel og be om en CSV-fil; senere ble den erstattet av et script (`00_make_siblings_list.R`) som parser den kopierte listen, etter at en sammenligning viste at den KI-lagde filen hadde slått sammen to Grant-familier og dermed gjort far og sønn til brødre. Den endelige datapipen, analysescriptet og det meste av dokumentasjonen ble skrevet med Claude Code, der vi beskrev hva som skulle gjøres, leste koden, stilte spørsmål om valg vi ikke forsto, og testet resultatene.
+Hjelp av ulike språkmodeller ble brukt gjennom hele prosjektet, og flere chunks med kode er skrevet med hjelp av claude og github copilot, med grundig debugging og rettelse av meg. Tidlig i prosjektet brukte jeg KI-assistenten i Positron ved hjelp av github student pack sin inline kode-editor til å lage oversikter over råfilene og til et første forsøk på sammenslåing, styrt av planer jeg skrev selv. Brødrelisten ble først generert ved å gi gemini en nettartikkel som lister alle brødre som har vært i NBA og be om en CSV-fil. Men senere når jeg rettet og debugget kode fant jeg ut at denne hadde feil og dermed måtte erstatte den med scriptet (`00_make_siblings_list.R`) som parser den kopierte listen, etter at en sammenligning viste at gemini tidligere hadde slått sammen to Grant-familier og dermed gjort far og sønn til brødre. Den endelige datapipen, analysescriptet og det meste av dokumentasjonen ble skrevet med Claude Code, der jeg beskrev hva som skulle gjøres, leste koden, stilte spørsmål om valg jeg ikke forstod, og testet resultatene.
 
-Det viktigste vi lærte er at KI-skrevet kode kan se riktig ut og likevel være feil på måter som bare oppdages ved å kontrollere mot ting man vet. Den første pipen hadde en regex-feil som gjorde at suffikser aldri ble fjernet, brukte et register som manglet 660 spillere, og laget fantomspillere av tvetydige lønnsrader. Ingenting av dette ga feilmeldinger. Feilene ble funnet fordi vi sjekket kjente spillere og familier, og det var også KI-verktøyet som deretter fant årsakene når vi pekte på symptomene. Et annet eksempel: assistenten rapporterte først tolv tvillingpar, fordi tomme fødselsdatoer ble sammenlignet som like; det riktige tallet er fem. Verktøyene var til gjengjeld svært effektive til ting som er tunge for mennesker, som å liste alle umatchede navn med kandidater fra registeret, implementere klyngede standardfeil, og lese gjennom forelesningsnotatene for å knytte prosjektet til pensum.
+Det viktigste jeg lærte er at KI skrevet kode kan se riktig ut og likevel være feil på måter som bare oppdages ved å kontrollere mot ting man vet. KI er altfor selvsikker ofte som kan føre til grove feil i kodegrunnlaget. Den første pipen hadde en regex feil som gjorde at suffikser aldri ble fjernet, brukte et register som manglet 660 spillere, og laget spøkelsespillere av tvetydige lønnsrader som ikke ble riktig. Ingenting av dette ga feilmeldinger. Feilene ble funnet fordi jeg sjekket *kjente spillere og familier*, og det var også med hjelp av AI som debugget sammen med meg som deretter fant årsakene når jeg pekte ut problemer. Et annet eksempel: assistenten rapporterte først tolv tvillingpar, fordi tomme fødselsdatoer ble sammenlignet som like, mens det riktige tallet faktisk var fem. AI var på den andre siden svært effektive til ting som er tungt for meg som menneske, som å liste alle umatchede navn med kandidater fra registeret, implementere clustering standardfeil, og ikke minst hjelpe med debugging og inspirasjon til løsninger når jeg stod helt fast selv.
 
-Lærdommen samsvarer med det kurset sier om språkmodeller som måleinstrument [@ferrara2026]: fest hva som ble gjort, valider mot kjente svar, og behandle output som støyete. Vi beholdt derfor alle kontrollfiler, en arbeidslogg over hva som ble gjort når, og en alias-tabell der hver manuelle avgjørelse er synlig.
+Lærdommen min samsvarer med det vi har gått gjennom i forelesning og seminarer om KI bruk. Dokumenter godt hvilke valg som blir tatt og hvilke deler av koden som er AI generert, valider og debug manuelt mot kjente svar, og behandle output fra KI som støyete. Jeg har altså beholdt alle kontrollfiler og tidligere script som ikke funket, skrevet en arbeidslogg over hva som ble gjort når og hvilke valg som ble tatt, og en alias-tabell der hver manuelle avgjørelse kan ses.
 
 # Referanser {.unnumbered}
 
@@ -233,7 +259,7 @@ Lærdommen samsvarer med det kurset sier om språkmodeller som måleinstrument [
 
 ## A1. Filer og kjøring {.unnumbered}
 
-Prosjektet kjøres fra prosjektroten med `Rscript scripts/01_build_player_data.R` (bygger de tre datasettene, tar noen sekunder bare) og `Rscript scripts/02_analysis.R` (figurer og tabeller til `results/`). `scripts/helpers.R` inneholder navnenormalisering og koblingsregelen; `scripts/00_scrape_father_son_list.R` er scraperen for far–sønn-listen. `reports/build_player_data.qmd` kjører pipen og stopper ved feil, `reports/analysis.qmd` viser alle resultater. Variabler, ID-regler og kjente hull er dokumentert i `docs/VIKTIGE_BEMERKELSER.md`, arbeidsgangen i `docs/ARBEIDSLOGG.md`.
+Prosjektet kjøres fra prosjektroten med `Rscript scripts/01_build_player_data.R` (bygger de tre datasettene, tar noen sekunder bare) og `Rscript scripts/02_analysis.R` (figurer og tabeller til `results/`). `scripts/helpers.R` inneholder navnenormalisering og koblingsregelen, og `scripts/00_scrape_father_son_list.R` er scraperen for far–sønn-listen. `reports/build_player_data.qmd` kjører pipen og stopper ved feil, `reports/analysis.qmd` viser alle resultater. Variabler, ID-regler og kjente hull er dokumentert i `docs/VIKTIGE_BEMERKELSER.md`, arbeidsgangen i `docs/ARBEIDSLOGG.md`.
 
 ## A2. Flere resultater {.unnumbered}
 
@@ -253,7 +279,7 @@ reg %>% transmute(Utfall = no(outcome), Variabel = rolle(term), Koeffisient = ro
 
 ```{r}
 #| label: tbl-fs
-#| tbl-cap: "Fedre mot sønner, parvis, for par der begge har statistikk. Differansen er sønn minus far; p fra parvis t-test."
+#| tbl-cap: "Fedre mot sønner, parvis, for par der begge har statistikk. Differansen er sønn minus far, og p er fra parvis t-test."
 stat_names <- c(pts_pg = "Poeng per kamp", reb_pg = "Returer per kamp", ast_pg = "Assists per kamp",
                 minutes_pg = "Minutter per kamp", games_per_season = "Kamper per sesong",
                 n_seasons = "Sesonger", ts_pct = "True shooting", net_rating = "Net rating",
