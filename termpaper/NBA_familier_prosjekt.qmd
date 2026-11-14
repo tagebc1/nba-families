@@ -174,11 +174,11 @@ fig("fig05_family_share_over_time.png")
 
 ```{r}
 #| label: tbl-effects
-#| tbl-cap: "Spillere med NBA-familie mot alle andre, karrieregjennomsnitt for spillere med minst 20 kamper. Cohen's d med bootstrap 95 %-intervall."
+#| tbl-cap: "Spillere med NBA-familie («Familie») mot alle andre. Tallene er karrieregjennomsnitt for spillere med minst 20 kamper, og d er Cohen's d med 95 %-intervall fra bootstrap."
 eff %>% filter(group == "NBA family vs no NBA family",
                stat %in% c("pts_pg", "ast_pg", "minutes_pg", "games_per_season", "n_seasons",
                            "salary_per_season", "ts_pct", "net_rating", "height")) %>%
-  transmute(Variabel = no(label), `NBA-familie` = round(mean_group, 2), Andre = round(mean_other, 2),
+  transmute(Variabel = no(label), Familie = round(mean_group, 2), Andre = round(mean_other, 2),
             d = round(d, 2), `95 % intervall` = paste0("[", round(lo, 2), ", ", round(hi, 2), "]"),
             n = paste(n_group, "/", n_other)) %>%
   kable()
@@ -188,7 +188,7 @@ eff %>% filter(group == "NBA family vs no NBA family",
 
 ```{r}
 #| label: tbl-panel
-#| tbl-cap: "Panelregresjon (@eq-panel): koeffisienter for sønn og bror med sesong-dummyer, alder, høyde og posisjon. Klyngede standardfeil (familie). «Snitt andre» er gjennomsnittet for spillere uten NBA-familie."
+#| tbl-cap: "Panelregresjon etter @eq-panel. Tabellen viser koeffisientene for sønn og bror når sesong, alder, høyde og posisjon holdes fast. Standardfeilene er klynget på familie. «Snitt andre» er gjennomsnittet for spillere uten NBA-familie."
 panel %>% filter(outcome %in% c("Points per game", "Minutes per game", "True shooting %", "Net rating", "Log salary")) %>%
   transmute(Utfall = no(outcome), Variabel = rolle(term), Koeffisient = round(estimate, 3),
             `Std.feil` = round(se_cluster, 3), p = round(p, 3), `Snitt andre` = round(mean_other, 2)) %>%
@@ -271,7 +271,7 @@ fig("fig07_salary_over_underpaid.png")
 
 ```{r}
 #| label: tbl-reg-career
-#| tbl-cap: "Karriereregresjon: y = sønn + bror + høyde + debuttiår + posisjon, spillere med minst 20 kamper, klyngede standardfeil (familie)."
+#| tbl-cap: "Karriereregresjon med utfall forklart av sønn, bror, høyde, debuttiår og posisjon, for spillere med minst 20 kamper. Standardfeilene er klynget på familie."
 reg %>% transmute(Utfall = no(outcome), Variabel = rolle(term), Koeffisient = round(estimate, 2),
                   `Std.feil` = round(se_cluster, 2), p = round(p, 3), `Snitt andre` = round(mean_other, 2)) %>%
   kable()
