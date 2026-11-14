@@ -138,7 +138,7 @@ Alle beregninger er gjort i R med tidyverse [@tidyverse] og ggplot2 [@ggplot2], 
 
 **Karrieretabell.** For hver spiller beregnes gjennomsnitt over sesongene, vektet med antall kamper, samt antall sesonger, kamper per sesong og lønn per sesong. Sammenligninger mellom grupper bruker spillere med minst 20 kamper, fordi noen få kamper gir ekstreme per-kamp-tall.
 
-**Gruppeforskjeller.** Forskjellen mellom spillere med og uten NBA-familie måles som standardisert gjennomsnittsforskjell (Cohen's *d*), altså forskjellen i gjennomsnitt delt på det samlede standardavviket, slik at tall på ulik skala kan sammenlignes i én tabell. Usikkerheten er et 95 %-intervall fra 1 000 bootstrap-trekk, som i seminar 1 og 4.
+**Gruppeforskjeller.** Forskjellen mellom spillere med og uten NBA-familie måles som standardisert gjennomsnittsforskjell, Cohen's *d* [@cohen1988], altså forskjellen i gjennomsnitt delt på det samlede standardavviket, slik at tall på ulik skala kan sammenlignes i én tabell. Målet er ikke pensum, men brukes fordi det setter poeng, minutter og lønn på samme skala. Cohen sin tommelfingerregel er at 0,2 er en liten, 0,5 en middels og 0,8 en stor forskjell. Usikkerheten er et 95 %-intervall fra 1 000 bootstrap-trekk, som i seminar 1 og 4.
 
 **Regresjon på panelet.** For å holde epoke, alder og posisjon fast estimerer vi på spiller–sesong-nivå
 
