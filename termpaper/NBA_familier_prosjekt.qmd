@@ -141,7 +141,7 @@ Slike hull i kildene finnes flere steder. Statsfilen har få rader for 2000 og 2
 
 # Metode
 
-Alle beregninger er gjort i R med tidyverse [@tidyverse] og ggplot2 [@ggplot2], og rapporten er skrevet i Quarto [@quarto]. Datapipen er ett script (`01_build_player_data.R`), analysen et annet (`02_analysis.R`), og rapporten leser inn tabellene og figurene disse scriptene skriver.
+Alle beregninger er gjort i R med tidyverse [@tidyverse] og ggplot2 [@ggplot2], og rapporten er skrevet i Quarto [@quarto]. Koden er fire nummererte script som kjøres i rekkefølge (@tbl-scripts i appendiks): to `00`-script lager familielistene, ett ved å scrape Wikipedia med rvest og ett ved å parse den kopierte brødrelisten, `01_build_player_data.R` kobler råfilene til de tre datasettene, og `02_analysis.R` lager tabellene og figurene rapporten leser inn. Koblingsregelen ligger i `helpers.R`.
 
 **Karrieretabell.** For hver spiller beregnes gjennomsnitt over sesongene, vektet med antall kamper, samt antall sesonger, kamper per sesong og lønn per sesong. Sammenligninger mellom grupper bruker spillere med minst 20 kamper, fordi noen få kamper gir ekstreme per-kamp-tall.
 
@@ -262,11 +262,25 @@ Lærdommen min samsvarer med det vi har gått gjennom i forelesning og seminarer
 ::: {#refs}
 :::
 
+```{=typst}
+#pagebreak()
+```
+
 # Appendiks {.unnumbered}
 
 ## A1. Filer og kjøring {.unnumbered}
 
-Hele prosjektet, med råfiler, script, kontrollfiler og denne rapporten, ligger åpent på GitHub: <https://github.com/tagebc1/nba-families>. Prosjektet kjøres fra prosjektroten med `Rscript scripts/01_build_player_data.R` (bygger de tre datasettene, tar noen sekunder bare) og `Rscript scripts/02_analysis.R` (figurer og tabeller til `results/`). `scripts/helpers.R` inneholder navnenormalisering og koblingsregelen, og `scripts/00_scrape_father_son_list.R` er scraperen for far–sønn-listen. `reports/build_player_data.qmd` kjører pipen og stopper ved feil, `reports/analysis.qmd` viser alle resultater. Variabler, ID-regler og kjente hull er dokumentert i `docs/VIKTIGE_BEMERKELSER.md`, arbeidsgangen i `docs/ARBEIDSLOGG.md`.
+Hele prosjektet, med råfiler, script, kontrollfiler og denne rapporten, ligger åpent på GitHub: <https://github.com/tagebc1/nba-families>. Scriptene i `scripts/` kjøres fra prosjektroten i nummerert rekkefølge (@tbl-scripts), og rapporten leser bare filene de skriver. Variabler, ID-regler og kjente hull er dokumentert i `docs/VIKTIGE_BEMERKELSER.md`, arbeidsgangen i `docs/ARBEIDSLOGG.md`.
+
+| Script | Gjør | Skriver |
+|:----------------------------------|:---------------------------------|:-----------------------------|
+| `00_scrape_father_son_list.R` | scraper far–sønn-listen fra Wikipedia med rvest | `data/father_son_list.csv` |
+| `00_make_siblings_list.R` | parser den kopierte brødrelisten til én rad per bror | `data/nba_siblings_list.csv` |
+| `helpers.R` | navnenormalisering, aliastabell og koblingsregelen (kap. 2.2) | kildes av `01` |
+| `01_build_player_data.R` | leser råfilene, kobler spillere og familier, bygger de tre datasettene | tre csv i `output_data/`, kontrollfiler i `results/` |
+| `02_analysis.R` | karrieretabell, Cohen's d, regresjoner, lønnsmodell, figurer | `results/analysis/`, `results/figures/` |
+
+: Scriptene i prosjektet, i kjørerekkefølge. `reports/build_player_data.qmd` kjører pipen og stopper ved feil, `reports/analysis.qmd` viser alle resultater. {#tbl-scripts}
 
 ## A2. Flere resultater {.unnumbered}
 
