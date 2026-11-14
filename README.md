@@ -1,5 +1,7 @@
 # NBA_Project
 
+![LeBron og Bronny James](images/LeNepotism.jpg)
+
 Datasett og analyse av NBA-spillere, lønn og familierelasjoner.
 Term paper i ECON3170/4170, høsten 2026.
 
@@ -67,7 +69,9 @@ docs/                       dokumentasjon
 
 termpaper/                  selve oppgaven: NBA_familier_prosjekt.qmd, references.bib, PDF
                             (figurer kopieres hit fra results/figures ved rendering)
-HowToTermpaper/             oppgavekrav og Quarto-mal for innleveringen
-archive/                    gamle script, rapporter, resultater og data (ikke i bruk)
-Skittentøy/                 kladd og nedlastede sider
 ```
+
+Lokalt finnes i tillegg mappene `archive/` (gamle script og rapporter),
+`Skittentøy/` (kladd) og `HowToTermpaper/` (oppgavetekst og mal). De er
+holdt utenfor repoet med `.gitignore`, sammen med HTML-rapportene og
+resten av Walsh-arkivet.
